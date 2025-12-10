@@ -4,9 +4,6 @@
 
 WindowManager:
     MainWindow:
-    ImagesWindow:
-    AudiosWindow:
-    VideosWindow:
 
 <MainWindow>:
     name: "main_window"
@@ -65,7 +62,7 @@ WindowManager:
                 valign: "middle"
                 padding: [dp(5), 0]
 
-        # زر البدء الرئيسي
+        # زر البدء الرئيسي (معدل)
         BoxLayout:
             size_hint_y: None
             height: dp(65)
@@ -83,8 +80,8 @@ WindowManager:
                 height: dp(48)
                 pos_hint: {"center_x": 0.5}
                 on_release:
-                    app.root.current = "images_window"
-                    root.manager.transition.direction = "left"
+                    # يمكنك إضافة وظيفة هنا بدلاً من الانتقال لشاشات غير موجودة
+                    print("تم الضغط على زر ابدأ الآن")
                 canvas.before:
                     Color:
                         rgba: 0.1, 0.1, 0.1, 0.15
@@ -135,6 +132,8 @@ WindowManager:
                     background_normal: ''
                     background_color: (145/255.0, 170/255.0, 220/255.0, 1)
                     color: (1, 1, 1, 1)
+                    on_release:
+                        print("توصيل للمنازل")
                 
                 Button:
                     text: alg.get_display(arabic_reshaper.reshape("طباعة أبيض وأسود"))
@@ -144,6 +143,8 @@ WindowManager:
                     background_normal: ''
                     background_color: (145/255.0, 170/255.0, 220/255.0, 1)
                     color: (1, 1, 1, 1)
+                    on_release:
+                        print("طباعة أبيض وأسود")
                 
                 Button:
                     text: alg.get_display(arabic_reshaper.reshape("طباعة ملونة"))
@@ -153,6 +154,8 @@ WindowManager:
                     background_normal: ''
                     background_color: (145/255.0, 170/255.0, 220/255.0, 1)
                     color: (1, 1, 1, 1)
+                    on_release:
+                        print("طباعة ملونة")
                 
                 Button:
                     text: alg.get_display(arabic_reshaper.reshape("تصوير المستندات"))
@@ -162,6 +165,8 @@ WindowManager:
                     background_normal: ''
                     background_color: (145/255.0, 170/255.0, 220/255.0, 1)
                     color: (1, 1, 1, 1)
+                    on_release:
+                        print("تصوير المستندات")
 
         # قسم "لماذا تختارنا"
         BoxLayout:
@@ -266,212 +271,3 @@ WindowManager:
                         font_size: sp(16)
                         color: (233/255.0, 75/255.0, 53/255.0, 1)
                         bold: True
-
-<ImagesWindow>:
-    name: "images_window"
-    
-    BoxLayout:
-        orientation: "vertical"
-        spacing: dp(10)
-        padding: [dp(15), dp(20), dp(15), dp(20)]
-        canvas.before:
-            Color:
-                rgba: 0.96, 0.96, 0.98, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-
-        # العنوان
-        BoxLayout:
-            orientation: "vertical"
-            spacing: dp(15)
-            size_hint_y: None
-            height: dp(120)
-            
-            Label:
-                text: alg.get_display(arabic_reshaper.reshape("صفحة الصور"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(26)
-                color: (25/255.0, 60/255.0, 95/255.0, 1)
-                size_hint_y: None
-                height: dp(50)
-                text_size: self.width, None
-                halign: "center"
-                valign: "middle"
-                bold: True
-                
-            Label:
-                text: alg.get_display(arabic_reshaper.reshape("اختر الصور للطباعة"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(16)
-                color: (0.35, 0.35, 0.35, 1)
-                size_hint_y: None
-                height: dp(30)
-                halign: "center"
-
-        BoxLayout:
-            size_hint_y: 0.6
-
-        BoxLayout:
-            size_hint_y: None
-            height: dp(70)
-            padding: [dp(30), dp(15), dp(30), 0]
-
-            Button:
-                text: alg.get_display(arabic_reshaper.reshape("الرئيسية"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(16)
-                background_normal: ''
-                background_color: (0.82, 0.82, 0.82, 1)
-                color: (0.25, 0.25, 0.25, 1)
-                size_hint: 1, None
-                height: dp(45)
-                pos_hint: {"center_x": 0.5}
-                on_release:
-                    app.root.current = "main_window"
-                    root.manager.transition.direction = "right"
-                canvas.before:
-                    Color:
-                        rgba: 0.15, 0.15, 0.15, 0.1
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [dp(8),]
-
-<AudiosWindow>:
-    name: "audios_window"
-    BoxLayout:
-        orientation: "vertical"
-        spacing: dp(10)
-        padding: [dp(15), dp(20), dp(15), dp(20)]
-        canvas.before:
-            Color:
-                rgba: 0.96, 0.96, 0.98, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-
-        BoxLayout:
-            orientation: "vertical"
-            spacing: dp(15)
-            size_hint_y: None
-            height: dp(120)
-            
-            Label:
-                text: alg.get_display(arabic_reshaper.reshape("صفحة المقاطع الصوتية"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(26)
-                color: (25/255.0, 60/255.0, 95/255.0, 1)
-                size_hint_y: None
-                height: dp(50)
-                text_size: self.width, None
-                halign: "center"
-                valign: "middle"
-                bold: True
-                
-            Label:
-                text: alg.get_display(arabic_reshaper.reshape("إدارة الملفات الصوتية"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(16)
-                color: (0.35, 0.35, 0.35, 1)
-                size_hint_y: None
-                height: dp(30)
-                halign: "center"
-
-        BoxLayout:
-            size_hint_y: 0.6
-
-        BoxLayout:
-            size_hint_y: None
-            height: dp(70)
-            padding: [dp(30), dp(15), dp(30), 0]
-
-            Button:
-                text: alg.get_display(arabic_reshaper.reshape("الرئيسية"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(16)
-                background_normal: ''
-                background_color: (0.82, 0.82, 0.82, 1)
-                color: (0.25, 0.25, 0.25, 1)
-                size_hint: 1, None
-                height: dp(45)
-                pos_hint: {"center_x": 0.5}
-                on_release:
-                    app.root.current = "main_window"
-                    root.manager.transition.direction = "right"
-                canvas.before:
-                    Color:
-                        rgba: 0.15, 0.15, 0.15, 0.1
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [dp(8),]
-
-<VideosWindow>:
-    name: "videos_window"
-    BoxLayout:
-        orientation: "vertical"
-        spacing: dp(10)
-        padding: [dp(15), dp(20), dp(15), dp(20)]
-        canvas.before:
-            Color:
-                rgba: 0.96, 0.96, 0.98, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-
-        BoxLayout:
-            orientation: "vertical"
-            spacing: dp(15)
-            size_hint_y: None
-            height: dp(120)
-            
-            Label:
-                text: alg.get_display(arabic_reshaper.reshape("صفحة المقاطع المرئية"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(26)
-                color: (25/255.0, 60/255.0, 95/255.0, 1)
-                size_hint_y: None
-                height: dp(50)
-                text_size: self.width, None
-                halign: "center"
-                valign: "middle"
-                bold: True
-                
-            Label:
-                text: alg.get_display(arabic_reshaper.reshape("إدارة الفيديوهات والمرئيات"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(16)
-                color: (0.35, 0.35, 0.35, 1)
-                size_hint_y: None
-                height: dp(30)
-                halign: "center"
-
-        BoxLayout:
-            size_hint_y: 0.6
-
-        BoxLayout:
-            size_hint_y: None
-            height: dp(70)
-            padding: [dp(30), dp(15), dp(30), 0]
-
-            Button:
-                text: alg.get_display(arabic_reshaper.reshape("الرئيسية"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(16)
-                background_normal: ''
-                background_color: (0.82, 0.82, 0.82, 1)
-                color: (0.25, 0.25, 0.25, 1)
-                size_hint: 1, None
-                height: dp(45)
-                pos_hint: {"center_x": 0.5}
-                on_release:
-                    app.root.current = "main_window"
-                    root.manager.transition.direction = "right"
-                canvas.before:
-                    Color:
-                        rgba: 0.15, 0.15, 0.15, 0.1
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [dp(8),]
