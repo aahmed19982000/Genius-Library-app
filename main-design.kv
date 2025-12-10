@@ -1,0 +1,477 @@
+#:import Window kivy.core.window.Window
+#:import alg bidi.algorithm
+#:import arabic_reshaper arabic_reshaper
+
+WindowManager:
+    MainWindow:
+    ImagesWindow:
+    AudiosWindow:
+    VideosWindow:
+
+<MainWindow>:
+    name: "main_window"
+
+    BoxLayout:
+        orientation: "vertical"
+        spacing: dp(8)
+        padding: [dp(15), dp(20), dp(15), dp(20)]
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.96, 0.98, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # العنوان الرئيسي
+        BoxLayout:
+            orientation: "vertical"
+            spacing: dp(5)
+            size_hint_y: None
+            height: dp(100)
+            padding: [0, 0, 0, dp(10)]
+
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("اطبع مستنداتك بسهولة"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(48)
+                color: (25/255.0, 60/255.0, 95/255.0, 1)
+                size_hint_y: None
+                height: dp(50)
+                text_size: self.width, None
+                halign: "center"
+                valign: "middle"
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 0.9
+                    RoundedRectangle:
+                        pos: self.x - dp(5), self.y - dp(5)
+                        size: self.width + dp(10), self.height + dp(10)
+                        radius: [dp(15),]
+                    Color:
+                        rgba: 0.2, 0.4, 0.6, 0.1
+                    Line:
+                        rounded_rectangle: [self.x - dp(5), self.y - dp(5), self.width + dp(10), self.height + dp(10), dp(15)]
+
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("خدمات طباعة وتصوير احترافية بجودة عالية"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(24)
+                color: (240/255.0, 80/255.0, 60/255.0, 1)
+                text_size: self.width - dp(20), None
+                size_hint_y: None
+                height: dp(40)
+                halign: "center"
+                valign: "middle"
+                padding: [dp(5), 0]
+
+        # زر البدء الرئيسي
+        BoxLayout:
+            size_hint_y: None
+            height: dp(65)
+            padding: [dp(40), dp(5), dp(40), dp(10)]
+
+            Button:
+                text: alg.get_display(arabic_reshaper.reshape("ابدأ الآن"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(29)
+                bold: True
+                background_normal: ''
+                background_color: (30/255.0, 140/255.0, 90/255.0, 1)
+                color: (1, 1, 1, 1)
+                size_hint: 1, None
+                height: dp(48)
+                pos_hint: {"center_x": 0.5}
+                on_release:
+                    app.root.current = "images_window"
+                    root.manager.transition.direction = "left"
+                canvas.before:
+                    Color:
+                        rgba: 0.1, 0.1, 0.1, 0.15
+                    RoundedRectangle:
+                        pos: self.x - dp(2), self.y - dp(2)
+                        size: self.width + dp(4), self.height + dp(4)
+                        radius: [dp(12),]
+                    Color:
+                        rgba: 0.15, 0.15, 0.15, 0.1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(10),]
+
+        # قسم الخدمات
+        BoxLayout:
+            orientation: "vertical"
+            spacing: dp(5)
+            size_hint_y: None
+            height: dp(200)
+            padding: [0, dp(5), 0, dp(5)]
+
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("خدماتنا المميزة"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(28)
+                color: (25/255.0, 60/255.0, 95/255.0, 1)
+                size_hint_y: None
+                height: dp(30)
+                halign: "center"
+                bold: True
+
+            # شبكة الخدمات
+            GridLayout:
+                cols: 2
+                spacing: dp(10)
+                padding: [dp(5), 0, dp(5), 0]
+                size_hint_y: None
+                height: dp(160)
+                row_default_height: dp(75)
+                row_force_default: True
+
+                Button:
+                    text: alg.get_display(arabic_reshaper.reshape("توصيل للمنازل"))
+                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                    font_size: sp(23.5)
+                    bold: True
+                    background_normal: ''
+                    background_color: (145/255.0, 170/255.0, 220/255.0, 1)
+                    color: (1, 1, 1, 1)
+                
+                Button:
+                    text: alg.get_display(arabic_reshaper.reshape("طباعة أبيض وأسود"))
+                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                    font_size: sp(23.5)
+                    bold: True
+                    background_normal: ''
+                    background_color: (145/255.0, 170/255.0, 220/255.0, 1)
+                    color: (1, 1, 1, 1)
+                
+                Button:
+                    text: alg.get_display(arabic_reshaper.reshape("طباعة ملونة"))
+                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                    font_size: sp(23.5)
+                    bold: True
+                    background_normal: ''
+                    background_color: (145/255.0, 170/255.0, 220/255.0, 1)
+                    color: (1, 1, 1, 1)
+                
+                Button:
+                    text: alg.get_display(arabic_reshaper.reshape("تصوير المستندات"))
+                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                    font_size: sp(23.5)
+                    bold: True
+                    background_normal: ''
+                    background_color: (145/255.0, 170/255.0, 220/255.0, 1)
+                    color: (1, 1, 1, 1)
+
+        # قسم "لماذا تختارنا"
+        BoxLayout:
+            orientation: "vertical"
+            spacing: dp(5)
+            size_hint_y: None
+            height: dp(150)
+            padding: [dp(5), dp(5), dp(5), dp(5)]
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(15),]
+                Color:
+                    rgba: 0.85, 0.9, 0.95, 1
+                Line:
+                    rounded_rectangle: [self.x, self.y, self.width, self.height, dp(15)]
+                    width: dp(1.5)
+
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("لماذا تختار مكتبتنا؟"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(29)
+                color: (25/255.0, 60/255.0, 95/255.0, 1)
+                size_hint_y: None
+                height: dp(35)
+                halign: "center"
+                bold: True
+                padding: [0, 0, 0, dp(5)]
+
+            BoxLayout:
+                orientation: "vertical"
+                spacing: dp(8)
+                size_hint_y: None
+                height: dp(100)
+                padding: [dp(10), 0, dp(10), 0]
+
+                BoxLayout:
+                    orientation: "horizontal"
+                    size_hint_y: None
+                    height: dp(30)
+                    
+                    Label:
+                        size_hint_x: 0.9
+                        text: "• " + alg.get_display(arabic_reshaper.reshape("جودة عالية في الطباعة"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(24)
+                        color: (0.25, 0.25, 0.25, 1)
+                        text_size: self.width, None
+                        halign: "right"
+                        valign: "middle"
+                    
+                    Label:
+                        size_hint_x: 0.1
+                        text: "✓"
+                        font_size: sp(16)
+                        color: (0, 150/255.0, 136/255.0, 1)
+                        bold: True
+                
+                BoxLayout:
+                    orientation: "horizontal"
+                    size_hint_y: None
+                    height: dp(30)
+                    
+                    Label:
+                        size_hint_x: 0.9
+                        text: "• " + alg.get_display(arabic_reshaper.reshape("توصيل سريع للمنازل"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(24)
+                        color: (0.25, 0.25, 0.25, 1)
+                        text_size: self.width, None
+                        halign: "right"
+                        valign: "middle"
+                    
+                    Label:
+                        size_hint_x: 0.1
+                        text: "✓"
+                        font_size: sp(16)
+                        color: (33/255.0, 150/255.0, 243/255.0, 1)
+                        bold: True
+                
+                BoxLayout:
+                    orientation: "horizontal"
+                    size_hint_y: None
+                    height: dp(30)
+                    
+                    Label:
+                        size_hint_x: 0.9
+                        text: "• " + alg.get_display(arabic_reshaper.reshape("دعم على مدار الساعة"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(24)
+                        color: (0.25, 0.25, 0.25, 1)
+                        text_size: self.width, None
+                        halign: "right"
+                        valign: "middle"
+                    
+                    Label:
+                        size_hint_x: 0.1
+                        text: "✓"
+                        font_size: sp(16)
+                        color: (233/255.0, 75/255.0, 53/255.0, 1)
+                        bold: True
+
+<ImagesWindow>:
+    name: "images_window"
+    
+    BoxLayout:
+        orientation: "vertical"
+        spacing: dp(10)
+        padding: [dp(15), dp(20), dp(15), dp(20)]
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.96, 0.98, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # العنوان
+        BoxLayout:
+            orientation: "vertical"
+            spacing: dp(15)
+            size_hint_y: None
+            height: dp(120)
+            
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("صفحة الصور"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(26)
+                color: (25/255.0, 60/255.0, 95/255.0, 1)
+                size_hint_y: None
+                height: dp(50)
+                text_size: self.width, None
+                halign: "center"
+                valign: "middle"
+                bold: True
+                
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("اختر الصور للطباعة"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(16)
+                color: (0.35, 0.35, 0.35, 1)
+                size_hint_y: None
+                height: dp(30)
+                halign: "center"
+
+        BoxLayout:
+            size_hint_y: 0.6
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(70)
+            padding: [dp(30), dp(15), dp(30), 0]
+
+            Button:
+                text: alg.get_display(arabic_reshaper.reshape("الرئيسية"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(16)
+                background_normal: ''
+                background_color: (0.82, 0.82, 0.82, 1)
+                color: (0.25, 0.25, 0.25, 1)
+                size_hint: 1, None
+                height: dp(45)
+                pos_hint: {"center_x": 0.5}
+                on_release:
+                    app.root.current = "main_window"
+                    root.manager.transition.direction = "right"
+                canvas.before:
+                    Color:
+                        rgba: 0.15, 0.15, 0.15, 0.1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(8),]
+
+<AudiosWindow>:
+    name: "audios_window"
+    BoxLayout:
+        orientation: "vertical"
+        spacing: dp(10)
+        padding: [dp(15), dp(20), dp(15), dp(20)]
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.96, 0.98, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            orientation: "vertical"
+            spacing: dp(15)
+            size_hint_y: None
+            height: dp(120)
+            
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("صفحة المقاطع الصوتية"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(26)
+                color: (25/255.0, 60/255.0, 95/255.0, 1)
+                size_hint_y: None
+                height: dp(50)
+                text_size: self.width, None
+                halign: "center"
+                valign: "middle"
+                bold: True
+                
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("إدارة الملفات الصوتية"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(16)
+                color: (0.35, 0.35, 0.35, 1)
+                size_hint_y: None
+                height: dp(30)
+                halign: "center"
+
+        BoxLayout:
+            size_hint_y: 0.6
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(70)
+            padding: [dp(30), dp(15), dp(30), 0]
+
+            Button:
+                text: alg.get_display(arabic_reshaper.reshape("الرئيسية"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(16)
+                background_normal: ''
+                background_color: (0.82, 0.82, 0.82, 1)
+                color: (0.25, 0.25, 0.25, 1)
+                size_hint: 1, None
+                height: dp(45)
+                pos_hint: {"center_x": 0.5}
+                on_release:
+                    app.root.current = "main_window"
+                    root.manager.transition.direction = "right"
+                canvas.before:
+                    Color:
+                        rgba: 0.15, 0.15, 0.15, 0.1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(8),]
+
+<VideosWindow>:
+    name: "videos_window"
+    BoxLayout:
+        orientation: "vertical"
+        spacing: dp(10)
+        padding: [dp(15), dp(20), dp(15), dp(20)]
+        canvas.before:
+            Color:
+                rgba: 0.96, 0.96, 0.98, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            orientation: "vertical"
+            spacing: dp(15)
+            size_hint_y: None
+            height: dp(120)
+            
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("صفحة المقاطع المرئية"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(26)
+                color: (25/255.0, 60/255.0, 95/255.0, 1)
+                size_hint_y: None
+                height: dp(50)
+                text_size: self.width, None
+                halign: "center"
+                valign: "middle"
+                bold: True
+                
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("إدارة الفيديوهات والمرئيات"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(16)
+                color: (0.35, 0.35, 0.35, 1)
+                size_hint_y: None
+                height: dp(30)
+                halign: "center"
+
+        BoxLayout:
+            size_hint_y: 0.6
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(70)
+            padding: [dp(30), dp(15), dp(30), 0]
+
+            Button:
+                text: alg.get_display(arabic_reshaper.reshape("الرئيسية"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(16)
+                background_normal: ''
+                background_color: (0.82, 0.82, 0.82, 1)
+                color: (0.25, 0.25, 0.25, 1)
+                size_hint: 1, None
+                height: dp(45)
+                pos_hint: {"center_x": 0.5}
+                on_release:
+                    app.root.current = "main_window"
+                    root.manager.transition.direction = "right"
+                canvas.before:
+                    Color:
+                        rgba: 0.15, 0.15, 0.15, 0.1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(8),]
