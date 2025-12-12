@@ -1,0 +1,399 @@
+#:import dp kivy.metrics.dp
+#:import sp kivy.metrics.sp
+#:import Window kivy.core.window.Window
+#:import alg bidi.algorithm
+#:import arabic_reshaper arabic_reshaper
+#:import Clock kivy.clock.Clock
+
+<RegisterScreen>:
+    name: "register"
+    
+    BoxLayout:
+        orientation: "vertical"
+        padding: [dp(20), dp(15), dp(20), dp(20)]  # تقليل padding العلوي
+        spacing: dp(10)  # تقليل المسافة بين العناصر
+        
+        # ScrollView لتمكين التمرير
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            bar_width: dp(8)
+            scroll_type: ['bars', 'content']
+            
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height  # ارتفاع ديناميكي
+                spacing: dp(10)
+                padding: [0, dp(5), 0, dp(10)]
+                
+                # عنوان الصفحة
+                Label:
+                    text: alg.get_display(arabic_reshaper.reshape("إنشاء حساب جديد"))
+                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                    font_size: sp(26)  # تقليل حجم الخط
+                    bold: True
+                    size_hint_y: None
+                    height: dp(40)  # تقليل الارتفاع
+                    color: (25/255.0, 60/255.0, 95/255.0, 1)
+                    text_size: self.width, None
+                    halign: "center"
+                    valign: "middle"
+                
+                # مسافة فارغة صغيرة
+                Widget:
+                    size_hint_y: None
+                    height: dp(5)
+                
+                # ========== الحقول ==========
+                
+                #الاسم الكامل
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: dp(3)
+                    size_hint_y: None
+                    height: dp(70)
+                    
+                    Label:
+                        text: alg.get_display(arabic_reshaper.reshape("الاسم الكامل"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(14)
+                        color: (0.3, 0.3, 0.3, 1)
+                        size_hint_y: None
+                        height: dp(20)
+                        text_size: self.width, None
+                        halign: "right"
+                        valign: "middle"
+                    
+                    TextInput:
+                        id: fullname_input
+                        hint_text: alg.get_display(arabic_reshaper.reshape("أدخل الاسم الكامل"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(16)
+                        size_hint_y: None
+                        height: dp(45)
+                        multiline: False
+                        halign: "right"
+                        valign: "middle"
+                        padding: [dp(10), dp(10)]
+                        foreground_color: (0.2, 0.2, 0.2, 1)
+                        hint_text_color: (0.5, 0.5, 0.5, 0.7)
+                        background_color: (1, 1, 1, 1)
+                        background_normal: ''
+                        background_active: ''
+                        write_tab: False
+                        on_text: Clock.schedule_once(lambda dt, ti=self: root.reshape_arabic_text(ti))
+                        
+                        canvas.before:
+                            Color:
+                                rgba: 0.85, 0.85, 0.85, 1
+                            Line:
+                                width: dp(1)
+                                rectangle: self.x, self.y, self.width, self.height
+                
+                # اسم المستخدم
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: dp(3)
+                    size_hint_y: None
+                    height: dp(70)
+                    
+                    Label:
+                        text: alg.get_display(arabic_reshaper.reshape("اسم المستخدم"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(14)
+                        color: (0.3, 0.3, 0.3, 1)
+                        size_hint_y: None
+                        height: dp(20)
+                        text_size: self.width, None
+                        halign: "right"
+                        valign: "middle"
+                    
+                    TextInput:
+                        id: username_input
+                        hint_text: alg.get_display(arabic_reshaper.reshape("أدخل اسم المستخدم"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(16)
+                        size_hint_y: None
+                        height: dp(45)
+                        multiline: False
+                        halign: "right"
+                        valign: "middle"
+                        padding: [dp(10), dp(10)]
+                        foreground_color: (0.2, 0.2, 0.2, 1)
+                        hint_text_color: (0.5, 0.5, 0.5, 0.7)
+                        background_color: (1, 1, 1, 1)
+                        background_normal: ''
+                        background_active: ''
+                        write_tab: False
+                        on_text: Clock.schedule_once(lambda dt, ti=self: root.reshape_arabic_text(ti))
+                        
+                        canvas.before:
+                            Color:
+                                rgba: 0.85, 0.85, 0.85, 1
+                            Line:
+                                width: dp(1)
+                                rectangle: self.x, self.y, self.width, self.height
+                
+                #البريد الإلكتروني
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: dp(3)
+                    size_hint_y: None
+                    height: dp(70)
+                    
+                    Label:
+                        text: alg.get_display(arabic_reshaper.reshape("البريد الإلكتروني"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(14)
+                        color: (0.3, 0.3, 0.3, 1)
+                        size_hint_y: None
+                        height: dp(20)
+                        text_size: self.width, None
+                        halign: "right"
+                        valign: "middle"
+                    
+                    TextInput:
+                        id: email_input
+                        hint_text: alg.get_display(arabic_reshaper.reshape("example@email.com"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(16)
+                        size_hint_y: None
+                        height: dp(45)
+                        multiline: False
+                        halign: "right"
+                        valign: "middle"
+                        padding: [dp(10), dp(10)]
+                        foreground_color: (0.2, 0.2, 0.2, 1)
+                        hint_text_color: (0.5, 0.5, 0.5, 0.7)
+                        background_color: (1, 1, 1, 1)
+                        background_normal: ''
+                        background_active: ''
+                        write_tab: False
+                        input_type: 'text'
+                        
+                        canvas.before:
+                            Color:
+                                rgba: 0.85, 0.85, 0.85, 1
+                            Line:
+                                width: dp(1)
+                                rectangle: self.x, self.y, self.width, self.height
+                
+                #رقم الهاتف (تم التصحيح هنا)
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: dp(3)
+                    size_hint_y: None
+                    height: dp(70)
+                    
+                    Label:
+                        text: alg.get_display(arabic_reshaper.reshape("رقم الهاتف"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(14)
+                        color: (0.3, 0.3, 0.3, 1)
+                        size_hint_y: None
+                        height: dp(20)
+                        text_size: self.width, None
+                        halign: "right"
+                        valign: "middle"
+                    
+                    TextInput:
+                        id: phone_input  # ⬅️ هذا هو التصحيح المهم!
+                        hint_text: alg.get_display(arabic_reshaper.reshape("مثال: 01012345678"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(16)
+                        size_hint_y: None
+                        height: dp(45)
+                        multiline: False
+                        halign: "right"
+                        valign: "middle"
+                        padding: [dp(10), dp(10)]
+                        foreground_color: (0.2, 0.2, 0.2, 1)
+                        hint_text_color: (0.5, 0.5, 0.5, 0.7)
+                        background_color: (1, 1, 1, 1)
+                        background_normal: ''
+                        background_active: ''
+                        write_tab: False
+                        input_filter: 'int'
+                        
+                        canvas.before:
+                            Color:
+                                rgba: 0.85, 0.85, 0.85, 1
+                            Line:
+                                width: dp(1)
+                                rectangle: self.x, self.y, self.width, self.height
+                
+                #كلمة المرور
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: dp(3)
+                    size_hint_y: None
+                    height: dp(70)
+                    
+                    Label:
+                        text: alg.get_display(arabic_reshaper.reshape("كلمة المرور"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(14)
+                        color: (0.3, 0.3, 0.3, 1)
+                        size_hint_y: None
+                        height: dp(20)
+                        text_size: self.width, None
+                        halign: "right"
+                        valign: "middle"
+                    
+                    TextInput:
+                        id: password_input
+                        hint_text: alg.get_display(arabic_reshaper.reshape("أدخل كلمة المرور"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(16)
+                        password: True
+                        size_hint_y: None
+                        height: dp(45)
+                        multiline: False
+                        halign: "right"
+                        valign: "middle"
+                        padding: [dp(10), dp(10)]
+                        foreground_color: (0.2, 0.2, 0.2, 1)
+                        hint_text_color: (0.5, 0.5, 0.5, 0.7)
+                        background_color: (1, 1, 1, 1)
+                        background_normal: ''
+                        background_active: ''
+                        write_tab: False
+                        
+                        canvas.before:
+                            Color:
+                                rgba: 0.85, 0.85, 0.85, 1
+                            Line:
+                                width: dp(1)
+                                rectangle: self.x, self.y, self.width, self.height
+                
+                #تأكيد كلمة المرور
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: dp(3)
+                    size_hint_y: None
+                    height: dp(70)
+                    
+                    Label:
+                        text: alg.get_display(arabic_reshaper.reshape("تأكيد كلمة المرور"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(14)
+                        color: (0.3, 0.3, 0.3, 1)
+                        size_hint_y: None
+                        height: dp(20)
+                        text_size: self.width, None
+                        halign: "right"
+                        valign: "middle"
+                    
+                    TextInput:
+                        id: confirm_password_input
+                        hint_text: alg.get_display(arabic_reshaper.reshape("أعد إدخال كلمة المرور"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(16)
+                        password: True
+                        size_hint_y: None
+                        height: dp(45)
+                        multiline: False
+                        halign: "right"
+                        valign: "middle"
+                        padding: [dp(10), dp(10)]
+                        foreground_color: (0.2, 0.2, 0.2, 1)
+                        hint_text_color: (0.5, 0.5, 0.5, 0.7)
+                        background_color: (1, 1, 1, 1)
+                        background_normal: ''
+                        background_active: ''
+                        write_tab: False
+                        
+                        canvas.before:
+                            Color:
+                                rgba: 0.85, 0.85, 0.85, 1
+                            Line:
+                                width: dp(1)
+                                rectangle: self.x, self.y, self.width, self.height
+                
+                #العنوان
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: dp(3)
+                    size_hint_y: None
+                    height: dp(85)
+                    
+                    Label:
+                        text: alg.get_display(arabic_reshaper.reshape("العنوان"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(14)
+                        color: (0.3, 0.3, 0.3, 1)
+                        size_hint_y: None
+                        height: dp(20)
+                        text_size: self.width, None
+                        halign: "right"
+                        valign: "middle"
+                    
+                    TextInput:
+                        id: address_input
+                        hint_text: alg.get_display(arabic_reshaper.reshape("أدخل عنوانك بالتفصيل"))
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(16)
+                        size_hint_y: None
+                        height: dp(60)
+                        multiline: True
+                        halign: "right"
+                        valign: "top"
+                        padding: [dp(10), dp(10)]
+                        foreground_color: (0.2, 0.2, 0.2, 1)
+                        hint_text_color: (0.5, 0.5, 0.5, 0.7)
+                        background_color: (1, 1, 1, 1)
+                        background_normal: ''
+                        background_active: ''
+                        write_tab: False
+                        on_text: Clock.schedule_once(lambda dt, ti=self: root.reshape_arabic_text(ti))
+                        
+                        canvas.before:
+                            Color:
+                                rgba: 0.85, 0.85, 0.85, 1
+                            Line:
+                                width: dp(1)
+                                rectangle: self.x, self.y, self.width, self.height
+        
+        # زر التسجيل (خارج ScrollView)
+        Button:
+            id: register_button
+            text: alg.get_display(arabic_reshaper.reshape("تسجيل"))
+            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+            font_size: sp(18)
+            size_hint_y: None
+            height: dp(45)
+            background_color: (0.2, 0.6, 1, 1)
+            background_normal: ''
+            color: (1, 1, 1, 1)
+            on_release: root.register_user()
+        
+        # رابط للعودة لتسجيل الدخول
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: dp(35)
+            spacing: dp(5)
+            
+            Label:
+                text: alg.get_display(arabic_reshaper.reshape("لديك حساب بالفعل؟"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(14)
+                size_hint_x: 0.7
+                color: (0.5, 0.5, 0.5, 1)
+                text_size: self.width, None
+                halign: "right"
+                valign: "middle"
+            
+            Button:
+                text: alg.get_display(arabic_reshaper.reshape("سجل دخول"))
+                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                font_size: sp(14)
+                bold: True
+                size_hint_x: 0.3
+                size_hint_y: None
+                height: dp(30)
+                background_color: (0, 0, 0, 0)
+                color: (0.2, 0.6, 1, 1)
+                padding: [dp(5), 0]
+                on_release: root.go_to_login()

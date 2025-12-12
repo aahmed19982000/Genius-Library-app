@@ -5,9 +5,9 @@
 #:import arabic_reshaper arabic_reshaper
 
 <LoginScreen>:
-    name: "login_screen"
+    name: "login"
     error_message: ""
-    success_message:""
+    success_message: ""
     login_success: False
     
     BoxLayout:
@@ -27,10 +27,10 @@
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
-            size: min(dp(400), Window.width * 0.9), min(dp(550), Window.height * 0.85)
+            size: min(dp(400), Window.width * 0.9), min(dp(580), Window.height * 0.85)  # زيادة الارتفاع قليلاً
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
-            spacing: dp(25)
-            padding: [dp(25), dp(30), dp(25), dp(30)]
+            spacing: dp(20)  # تقليل المسافة بين العناصر
+            padding: [dp(25), dp(25), dp(25), dp(25)]  # تقليل padding العلوي
             canvas.before:
                 Color:
                     rgba: 1, 1, 1, 1
@@ -51,20 +51,20 @@
                     size: self.size
                     radius: [dp(12),]
             
-            # العنوان
+            # العنوان - رفع للأعلى
             BoxLayout:
                 orientation: "vertical"
-                spacing: dp(10)
+                spacing: dp(5)  # تقليل المسافة بين العنوانين
                 size_hint_y: None
-                height: dp(80)
+                height: dp(70)  # تقليل الارتفاع
                 
                 Label:
                     text: alg.get_display(arabic_reshaper.reshape("تسجيل الدخول"))
                     font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                    font_size: sp(32)
+                    font_size: sp(30)  # تقليل حجم الخط قليلاً
                     color: (25/255.0, 60/255.0, 95/255.0, 1)
                     size_hint_y: None
-                    height: dp(50)
+                    height: dp(40)  # تقليل الارتفاع
                     text_size: self.width, None
                     halign: "center"
                     valign: "middle"
@@ -73,13 +73,18 @@
                 Label:
                     text: alg.get_display(arabic_reshaper.reshape("أدخل بياناتك للدخول إلى حسابك"))
                     font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                    font_size: sp(16)
+                    font_size: sp(15)  # تقليل حجم الخط
                     color: (0.4, 0.4, 0.4, 1)
                     size_hint_y: None
-                    height: dp(30)
+                    height: dp(25)  # تقليل الارتفاع
                     text_size: self.width, None
                     halign: "center"
-                    valign: "middle"
+                    valign: "top"  
+            
+            # مسافة فارغة لرفع الحقول للأعلى
+            Widget:
+                size_hint_y: None
+                height: dp(10)
             
             # حاوية نموذج الدخول
             BoxLayout:
@@ -89,33 +94,34 @@
                 # حقل اسم المستخدم
                 BoxLayout:
                     orientation: "vertical"
-                    spacing: dp(8)
+                    spacing: dp(5)  # تقليل المسافة بين العنوان والحقل
                     size_hint_y: None
                     height: dp(75)
                     
                     Label:
                         text: alg.get_display(arabic_reshaper.reshape("اسم المستخدم"))
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(17)
+                        font_size: sp(16)  # تقليل حجم الخط
                         color: (0.25, 0.25, 0.25, 1)
                         size_hint_y: None
-                        height: dp(25)
+                        height: dp(22)  # تقليل الارتفاع
                         text_size: self.width, None
                         halign: "right"
-                        valign: "middle"
+                        valign: "bottom"  # تغيير إلى bottom ليقترب من الحقل
                         bold: True
                     
                     TextInput:
                         id: username_input
                         multiline: False
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(19)
+                        font_size: sp(18)  # تقليل حجم الخط
                         size_hint_y: None
                         height: dp(50)
                         padding: [dp(15), dp(13)]
                         hint_text: alg.get_display(arabic_reshaper.reshape("أدخل اسم المستخدم"))
                         foreground_color: (0.2, 0.2, 0.2, 1)
                         background_color: (1, 1, 1, 1)
+                        halign: "right"
                         on_text:
                             root.clear_error()
                         on_focus:
@@ -137,20 +143,20 @@
                 # حقل كلمة المرور
                 BoxLayout:
                     orientation: "vertical"
-                    spacing: dp(8)
+                    spacing: dp(5)  # تقليل المسافة بين العنوان والحقل
                     size_hint_y: None
                     height: dp(75)
                     
                     Label:
                         text: alg.get_display(arabic_reshaper.reshape("كلمة المرور"))
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(17)
+                        font_size: sp(16)  # تقليل حجم الخط
                         color: (0.25, 0.25, 0.25, 1)
                         size_hint_y: None
-                        height: dp(25)
+                        height: dp(22)  # تقليل الارتفاع
                         text_size: self.width, None
                         halign: "right"
-                        valign: "middle"
+                        valign: "bottom"  # تغيير إلى bottom ليقترب من الحقل
                         bold: True
                     
                     TextInput:
@@ -158,13 +164,14 @@
                         multiline: False
                         password: True
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(19)
+                        font_size: sp(18)  # تقليل حجم الخط
                         size_hint_y: None
                         height: dp(50)
                         padding: [dp(15), dp(13)]
                         hint_text: alg.get_display(arabic_reshaper.reshape("أدخل كلمة المرور"))
                         foreground_color: (0.2, 0.2, 0.2, 1)
                         background_color: (1, 1, 1, 1)
+                        halign: "right"
                         on_text:
                             root.clear_error()
                         on_focus:
@@ -182,38 +189,6 @@
                             Line:
                                 width: dp(1.2)
                                 rounded_rectangle: [self.x, self.y, self.width, self.height, dp(6)]
-                
-                # حاوية رسالة النجاح (مخفية افتراضيًا)
-                BoxLayout:
-                    id: success_container
-                    size_hint_y: None
-                    height: 0
-                    opacity: 0
-                    padding: [dp(12), dp(8)]
-                    
-                    canvas.before:
-                        Color:
-                            rgba: 0.88, 0.98, 0.88, 1
-                        RoundedRectangle:
-                            pos: self.pos
-                            size: self.size
-                            radius: [dp(8),]
-                        Color:
-                            rgba: 0.2, 0.7, 0.3, 1
-                        Line:
-                            width: dp(1)
-                            rounded_rectangle: [self.x, self.y, self.width, self.height, dp(8)]
-                    
-                    Label:
-                        id: success_message
-                        text: ""
-                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(15)
-                        color: (0, 0.5, 0.1, 1)
-                        text_size: self.width, None
-                        halign: "center"
-                        valign: "middle"
-                        bold: True
                 
                 # حاوية رسالة الخطأ (مخفية افتراضيًا)
                 BoxLayout:
@@ -239,7 +214,7 @@
                     Label:
                         text: root.error_message
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(15)
+                        font_size: sp(14)
                         color: (0.8, 0.1, 0.1, 1)
                         text_size: self.width, None
                         halign: "center"
@@ -271,8 +246,8 @@
                         id: success_label
                         text: root.success_message
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(15)
-                        color: (0, 0.6, 0, 1)  # لون أخضر للنجاح
+                        font_size: sp(14)
+                        color: (0, 0.6, 0, 1)
                         text_size: self.width, None
                         halign: "center"
                         valign: "middle"
@@ -283,13 +258,13 @@
                     id: login_button
                     text: alg.get_display(arabic_reshaper.reshape("تسجيل الدخول"))
                     font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                    font_size: sp(19)
+                    font_size: sp(18)
                     bold: True
                     background_normal: ''
                     background_color: (0.16, 0.65, 0.27, 1) if not root.login_success else (0.4, 0.4, 0.4, 1)
                     color: (1, 1, 1, 1)
                     size_hint_y: None
-                    height: dp(55)
+                    height: dp(50)
                     on_release: root.login()
                     disabled: root.login_success
                     canvas.before:
@@ -309,9 +284,9 @@
             # روابط إضافية
             BoxLayout:
                 orientation: "vertical"
-                spacing: dp(18)
+                spacing: dp(15)
                 size_hint_y: None
-                height: dp(90)
+                height: dp(80)
                 
                 # رابط التسجيل
                 BoxLayout:
@@ -323,7 +298,7 @@
                     Label:
                         text: alg.get_display(arabic_reshaper.reshape("ليس لديك حساب؟"))
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(16)
+                        font_size: sp(15)
                         color: (0.35, 0.35, 0.35, 1)
                         size_hint_x: 0.6
                         text_size: self.width, None
@@ -333,7 +308,7 @@
                     Button:
                         text: alg.get_display(arabic_reshaper.reshape("سجل هنا"))
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(16)
+                        font_size: sp(15)
                         bold: True
                         background_normal: ''
                         background_color: (0, 0, 0, 0)
@@ -360,7 +335,7 @@
                     Button:
                         text: alg.get_display(arabic_reshaper.reshape("هل نسيت كلمة المرور؟"))
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(16)
+                        font_size: sp(15)
                         bold: True
                         background_normal: ''
                         background_color: (0, 0, 0, 0)
@@ -381,12 +356,12 @@
             BoxLayout:
                 orientation: "vertical"
                 size_hint_y: None
-                height: dp(40)
+                height: dp(30)
                 
                 Label:
                     text: alg.get_display(arabic_reshaper.reshape("© 2024 مكتبة الطباعة. جميع الحقوق محفوظة."))
                     font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                    font_size: sp(12)
+                    font_size: sp(11)
                     color: (0.5, 0.5, 0.5, 1)
                     text_size: self.width, None
                     halign: "center"

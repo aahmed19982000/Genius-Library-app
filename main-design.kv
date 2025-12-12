@@ -1,11 +1,30 @@
 #:import Window kivy.core.window.Window
 #:import alg bidi.algorithm
 #:import arabic_reshaper arabic_reshaper
+#:import NoTransition kivy.uix.screenmanager.NoTransition
 
-WindowManager:
-    MainWindow:
+ScreenManager:
+    id: screen_manager
+    transition: NoTransition()
+    
+    Screen:
+        name: "main_window"
+        MainWindow:
+    
+    Screen:
+        name: "login"
+        LoginScreen:
+    
+    Screen:
+        name: "register"
+        RegisterScreen:
+    
+    Screen:
+        name: "dashboard"
+        DashboardScreen:
 
 <MainWindow>:
+    # ... إبقاء كل الكود الأصلي كما هو أدناه بدون تغيير ...
     name: "main_window"
 
     BoxLayout:
@@ -80,8 +99,7 @@ WindowManager:
                 height: dp(48)
                 pos_hint: {"center_x": 0.5}
                 on_release:
-                    # يمكنك إضافة وظيفة هنا بدلاً من الانتقال لشاشات غير موجودة
-                    print("تم الضغط على زر ابدأ الآن")
+                    root.manager.current = 'login'  # الانتقال لشاشة الدخول
                 canvas.before:
                     Color:
                         rgba: 0.1, 0.1, 0.1, 0.15
