@@ -1,9 +1,5 @@
 #:import dp kivy.metrics.dp
-#:import sp kivy.metrics.sp
-#:import Window kivy.core.window.Window
-#:import alg bidi.algorithm
-#:import arabic_reshaper arabic_reshaper
-#:import Clock kivy.clock.Clock
+
 
 <RegisterScreen>:
     name: "register"
@@ -29,7 +25,7 @@
                 
                 # عنوان الصفحة
                 Label:
-                    text: alg.get_display(arabic_reshaper.reshape("إنشاء حساب جديد"))
+                    text: "إنشاء حساب جديد"
                     font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                     font_size: sp(26)  # تقليل حجم الخط
                     bold: True
@@ -55,7 +51,7 @@
                     height: dp(70)
                     
                     Label:
-                        text: alg.get_display(arabic_reshaper.reshape("الاسم الكامل"))
+                        text: "الاسم الكامل"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(14)
                         color: (0.3, 0.3, 0.3, 1)
@@ -67,7 +63,7 @@
                     
                     TextInput:
                         id: fullname_input
-                        hint_text: alg.get_display(arabic_reshaper.reshape("أدخل الاسم الكامل"))
+                        hint_text: "أدخل الاسم الكامل"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(16)
                         size_hint_y: None
@@ -82,7 +78,7 @@
                         background_normal: ''
                         background_active: ''
                         write_tab: False
-                        on_text: Clock.schedule_once(lambda dt, ti=self: root.reshape_arabic_text(ti))
+                        
                         
                         canvas.before:
                             Color:
@@ -99,7 +95,7 @@
                     height: dp(70)
                     
                     Label:
-                        text: alg.get_display(arabic_reshaper.reshape("اسم المستخدم"))
+                        text: "اسم المستخدم"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(14)
                         color: (0.3, 0.3, 0.3, 1)
@@ -111,7 +107,7 @@
                     
                     TextInput:
                         id: username_input
-                        hint_text: alg.get_display(arabic_reshaper.reshape("أدخل اسم المستخدم"))
+                        hint_text: "أدخل اسم المستخدم"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(16)
                         size_hint_y: None
@@ -126,7 +122,7 @@
                         background_normal: ''
                         background_active: ''
                         write_tab: False
-                        on_text: Clock.schedule_once(lambda dt, ti=self: root.reshape_arabic_text(ti))
+                        
                         
                         canvas.before:
                             Color:
@@ -143,7 +139,7 @@
                     height: dp(70)
                     
                     Label:
-                        text: alg.get_display(arabic_reshaper.reshape("البريد الإلكتروني"))
+                        text: "البريد الإلكتروني"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(14)
                         color: (0.3, 0.3, 0.3, 1)
@@ -155,7 +151,7 @@
                     
                     TextInput:
                         id: email_input
-                        hint_text: alg.get_display(arabic_reshaper.reshape("example@email.com"))
+                        hint_text: "example@email.com"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(16)
                         size_hint_y: None
@@ -187,7 +183,7 @@
                     height: dp(70)
                     
                     Label:
-                        text: alg.get_display(arabic_reshaper.reshape("رقم الهاتف"))
+                        text: "رقم الهاتف"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(14)
                         color: (0.3, 0.3, 0.3, 1)
@@ -198,8 +194,8 @@
                         valign: "middle"
                     
                     TextInput:
-                        id: phone_input  # ⬅️ هذا هو التصحيح المهم!
-                        hint_text: alg.get_display(arabic_reshaper.reshape("مثال: 01012345678"))
+                        id: phone_input  
+                        hint_text: "مثال: 01012345678"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(16)
                         size_hint_y: None
@@ -231,7 +227,7 @@
                     height: dp(70)
                     
                     Label:
-                        text: alg.get_display(arabic_reshaper.reshape("كلمة المرور"))
+                        text: "كلمة المرور"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(14)
                         color: (0.3, 0.3, 0.3, 1)
@@ -243,7 +239,7 @@
                     
                     TextInput:
                         id: password_input
-                        hint_text: alg.get_display(arabic_reshaper.reshape("أدخل كلمة المرور"))
+                        hint_text: "أدخل كلمة المرور"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(16)
                         password: True
@@ -275,7 +271,7 @@
                     height: dp(70)
                     
                     Label:
-                        text: alg.get_display(arabic_reshaper.reshape("تأكيد كلمة المرور"))
+                        text: "تأكيد كلمة المرور"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(14)
                         color: (0.3, 0.3, 0.3, 1)
@@ -287,7 +283,7 @@
                     
                     TextInput:
                         id: confirm_password_input
-                        hint_text: alg.get_display(arabic_reshaper.reshape("أعد إدخال كلمة المرور"))
+                        hint_text: "أعد إدخال كلمة المرور"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(16)
                         password: True
@@ -319,7 +315,7 @@
                     height: dp(85)
                     
                     Label:
-                        text: alg.get_display(arabic_reshaper.reshape("العنوان"))
+                        text: "العنوان"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(14)
                         color: (0.3, 0.3, 0.3, 1)
@@ -331,7 +327,7 @@
                     
                     TextInput:
                         id: address_input
-                        hint_text: alg.get_display(arabic_reshaper.reshape("أدخل عنوانك بالتفصيل"))
+                        hint_text: "أدخل عنوانك بالتفصيل"
                         font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                         font_size: sp(16)
                         size_hint_y: None
@@ -346,7 +342,7 @@
                         background_normal: ''
                         background_active: ''
                         write_tab: False
-                        on_text: Clock.schedule_once(lambda dt, ti=self: root.reshape_arabic_text(ti))
+                        
                         
                         canvas.before:
                             Color:
@@ -358,7 +354,7 @@
         # زر التسجيل (خارج ScrollView)
         Button:
             id: register_button
-            text: alg.get_display(arabic_reshaper.reshape("تسجيل"))
+            text: "تسجيل"
             font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
             font_size: sp(18)
             size_hint_y: None
@@ -376,7 +372,7 @@
             spacing: dp(5)
             
             Label:
-                text: alg.get_display(arabic_reshaper.reshape("لديك حساب بالفعل؟"))
+                text: "لديك حساب بالفعل؟"
                 font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                 font_size: sp(14)
                 size_hint_x: 0.7
@@ -386,7 +382,7 @@
                 valign: "middle"
             
             Button:
-                text: alg.get_display(arabic_reshaper.reshape("سجل دخول"))
+                text: "سجل دخول"
                 font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                 font_size: sp(14)
                 bold: True

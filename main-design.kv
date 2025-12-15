@@ -1,291 +1,792 @@
-#:import Window kivy.core.window.Window
-#:import alg bidi.algorithm
-#:import arabic_reshaper arabic_reshaper
-#:import NoTransition kivy.uix.screenmanager.NoTransition
+# main-design.kv
 
-ScreenManager:
-    id: screen_manager
-    transition: NoTransition()
-    
-    Screen:
-        name: "main_window"
-        MainWindow:
-    
-    Screen:
-        name: "login"
-        LoginScreen:
-    
-    Screen:
-        name: "register"
-        RegisterScreen:
-    
-    Screen:
-        name: "dashboard"
-        DashboardScreen:
+#:import dp kivy.metrics.dp
 
 <MainWindow>:
-    # ... إبقاء كل الكود الأصلي كما هو أدناه بدون تغيير ...
-    name: "main_window"
-
+    name: 'main'
+    
     BoxLayout:
-        orientation: "vertical"
-        spacing: dp(8)
-        padding: [dp(15), dp(20), dp(15), dp(20)]
-        canvas.before:
-            Color:
-                rgba: 0.96, 0.96, 0.98, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-
-        # العنوان الرئيسي
+        orientation: 'vertical'
+        spacing: dp(5)  # تقليل المسافات بين العناصر
+        
+        # الهيدر العلوي (ترحيب وإشعارات)
         BoxLayout:
-            orientation: "vertical"
-            spacing: dp(5)
+            id: top_header
             size_hint_y: None
-            height: dp(100)
-            padding: [0, 0, 0, dp(10)]
-
-            Label:
-                text: alg.get_display(arabic_reshaper.reshape("اطبع مستنداتك بسهولة"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(48)
-                color: (25/255.0, 60/255.0, 95/255.0, 1)
-                size_hint_y: None
-                height: dp(50)
-                text_size: self.width, None
-                halign: "center"
-                valign: "middle"
-                bold: True
-                canvas.before:
-                    Color:
-                        rgba: 1, 1, 1, 0.9
-                    RoundedRectangle:
-                        pos: self.x - dp(5), self.y - dp(5)
-                        size: self.width + dp(10), self.height + dp(10)
-                        radius: [dp(15),]
-                    Color:
-                        rgba: 0.2, 0.4, 0.6, 0.1
-                    Line:
-                        rounded_rectangle: [self.x - dp(5), self.y - dp(5), self.width + dp(10), self.height + dp(10), dp(15)]
-
-            Label:
-                text: alg.get_display(arabic_reshaper.reshape("خدمات طباعة وتصوير احترافية بجودة عالية"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(24)
-                color: (240/255.0, 80/255.0, 60/255.0, 1)
-                text_size: self.width - dp(20), None
-                size_hint_y: None
-                height: dp(40)
-                halign: "center"
-                valign: "middle"
-                padding: [dp(5), 0]
-
-        # زر البدء الرئيسي (معدل)
-        BoxLayout:
-            size_hint_y: None
-            height: dp(65)
-            padding: [dp(40), dp(5), dp(40), dp(10)]
-
-            Button:
-                text: alg.get_display(arabic_reshaper.reshape("ابدأ الآن"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(29)
-                bold: True
-                background_normal: ''
-                background_color: (30/255.0, 140/255.0, 90/255.0, 1)
-                color: (1, 1, 1, 1)
-                size_hint: 1, None
-                height: dp(48)
-                pos_hint: {"center_x": 0.5}
-                on_release:
-                    root.manager.current = 'login'  # الانتقال لشاشة الدخول
-                canvas.before:
-                    Color:
-                        rgba: 0.1, 0.1, 0.1, 0.15
-                    RoundedRectangle:
-                        pos: self.x - dp(2), self.y - dp(2)
-                        size: self.width + dp(4), self.height + dp(4)
-                        radius: [dp(12),]
-                    Color:
-                        rgba: 0.15, 0.15, 0.15, 0.1
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [dp(10),]
-
-        # قسم الخدمات
-        BoxLayout:
-            orientation: "vertical"
-            spacing: dp(5)
-            size_hint_y: None
-            height: dp(200)
-            padding: [0, dp(5), 0, dp(5)]
-
-            Label:
-                text: alg.get_display(arabic_reshaper.reshape("خدماتنا المميزة"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(28)
-                color: (25/255.0, 60/255.0, 95/255.0, 1)
-                size_hint_y: None
-                height: dp(30)
-                halign: "center"
-                bold: True
-
-            # شبكة الخدمات
-            GridLayout:
-                cols: 2
-                spacing: dp(10)
-                padding: [dp(5), 0, dp(5), 0]
-                size_hint_y: None
-                height: dp(160)
-                row_default_height: dp(75)
-                row_force_default: True
-
-                Button:
-                    text: alg.get_display(arabic_reshaper.reshape("توصيل للمنازل"))
-                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                    font_size: sp(23.5)
-                    bold: True
-                    background_normal: ''
-                    background_color: (145/255.0, 170/255.0, 220/255.0, 1)
-                    color: (1, 1, 1, 1)
-                    on_release:
-                        print("توصيل للمنازل")
-                
-                Button:
-                    text: alg.get_display(arabic_reshaper.reshape("طباعة أبيض وأسود"))
-                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                    font_size: sp(23.5)
-                    bold: True
-                    background_normal: ''
-                    background_color: (145/255.0, 170/255.0, 220/255.0, 1)
-                    color: (1, 1, 1, 1)
-                    on_release:
-                        print("طباعة أبيض وأسود")
-                
-                Button:
-                    text: alg.get_display(arabic_reshaper.reshape("طباعة ملونة"))
-                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                    font_size: sp(23.5)
-                    bold: True
-                    background_normal: ''
-                    background_color: (145/255.0, 170/255.0, 220/255.0, 1)
-                    color: (1, 1, 1, 1)
-                    on_release:
-                        print("طباعة ملونة")
-                
-                Button:
-                    text: alg.get_display(arabic_reshaper.reshape("تصوير المستندات"))
-                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                    font_size: sp(23.5)
-                    bold: True
-                    background_normal: ''
-                    background_color: (145/255.0, 170/255.0, 220/255.0, 1)
-                    color: (1, 1, 1, 1)
-                    on_release:
-                        print("تصوير المستندات")
-
-        # قسم "لماذا تختارنا"
-        BoxLayout:
-            orientation: "vertical"
-            spacing: dp(5)
-            size_hint_y: None
-            height: dp(150)
-            padding: [dp(5), dp(5), dp(5), dp(5)]
+            height: dp(70)  # تقليل ارتفاع الهيدر
+            padding: [dp(10), dp(10), dp(10), dp(5)]  # تقليل الحواف
+            spacing: dp(10)
+            orientation: 'horizontal'
             canvas.before:
                 Color:
-                    rgba: 1, 1, 1, 1
-                RoundedRectangle:
+                    rgba: [0.96, 0.96, 0.97, 1]
+                Rectangle:
                     pos: self.pos
                     size: self.size
-                    radius: [dp(15),]
-                Color:
-                    rgba: 0.85, 0.9, 0.95, 1
-                Line:
-                    rounded_rectangle: [self.x, self.y, self.width, self.height, dp(15)]
-                    width: dp(1.5)
-
-            Label:
-                text: alg.get_display(arabic_reshaper.reshape("لماذا تختار مكتبتنا؟"))
-                font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                font_size: sp(29)
-                color: (25/255.0, 60/255.0, 95/255.0, 1)
-                size_hint_y: None
-                height: dp(35)
-                halign: "center"
-                bold: True
-                padding: [0, 0, 0, dp(5)]
-
+            
+            # صورة المستخدم واسمه
             BoxLayout:
-                orientation: "vertical"
-                spacing: dp(8)
+                orientation: 'horizontal'
+                spacing: dp(10)
+                size_hint_x: 0.7  # تقليل عرض هذا القسم
+                
+                # صورة المستخدم
+                AsyncImage:
+                    source: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCd50HIQZ4gIO6cYYnY_Uvz9robm9LwuW-_ZrE_GC09-Sl15N4r6NOjc_i6VUuBMBFKB4uw6mGTuGPY-DL4ivGqM19SgLNrceMtCGIRNqnD6xsUFkRffwLnL8oHuSOcFGq5XBC79tno0NUPLUjSCpJADzUT9o2nEQ2PaoJTKRUq2kCLO7BRPOPR0RpymTg3sTYADa8CydWXNASTKxpJuBLSQ1SiXkL0QvTRIsyEf9FE_zVggFUUtSb5Ff1vhUT6hAJBsPD0LlPZV2I'
+                    size_hint: None, None
+                    size: dp(40), dp(40)  # تقليل حجم الصورة
+                    radius: [dp(20),]
+                    allow_stretch: True
+                
+                # الترحيب والاسم
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(2)
+                    
+                    Label:
+                        text: 'صباح الخير'
+                        font_name: 'fonts/ArbFONTS-AwanZaman-Regular.ttf'
+                        font_size: dp(12)  # حجم الخط كما هو
+                        color: [0.3, 0.3, 0.3, 1]
+                        halign: 'right'
+                        valign: 'middle'
+                        text_size: self.size
+                    
+                    Label:
+                        id: user_name_label
+                        text: 'أحمد!'
+                        font_name: 'AwanZaman'
+                        font_size: dp(18)  # حجم الخط كما هو
+                        color: [0.1, 0.1, 0.1, 1]
+                        halign: 'right'
+                        valign: 'middle'
+                        text_size: self.size
+                        bold: True
+            
+            # زر الإشعارات
+            FloatLayout:
+                size_hint_x: 0.3  # تقليل عرض هذا القسم
+                
+                Button:
+                    size_hint: None, None
+                    size: dp(40), dp(40)  # تقليل حجم الزر
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    background_color: [1, 1, 1, 1]
+                    background_normal: ''
+                    on_release: root.notifications_pressed()
+                    
+                    canvas.before:
+                        Color:
+                            rgba: [1, 1, 1, 1]
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20),]
+                        Color:
+                            rgba: [0.9, 0.9, 0.9, 1]
+                        Line:
+                            width: 0.5
+                            rounded_rectangle: [self.x, self.y, self.width, self.height, dp(20)]
+                    
+                    Label:
+                        text: 'notifications'
+                        font_name: 'MaterialSymbolsOutlined'
+                        font_size: dp(20)  # حجم الخط كما هو
+                        color: [0.1, 0.1, 0.1, 1]
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        
+        # المحتوى الرئيسي (ScrollView)
+        ScrollView:
+            id: main_scrollview
+            do_scroll_x: False
+            do_scroll_y: True
+            bar_width: dp(0)
+            
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: dp(10)  # تقليل المسافات بين العناصر
                 size_hint_y: None
-                height: dp(100)
-                padding: [dp(10), 0, dp(10), 0]
-
-                BoxLayout:
-                    orientation: "horizontal"
-                    size_hint_y: None
-                    height: dp(30)
-                    
-                    Label:
-                        size_hint_x: 0.9
-                        text: "• " + alg.get_display(arabic_reshaper.reshape("جودة عالية في الطباعة"))
-                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(24)
-                        color: (0.25, 0.25, 0.25, 1)
-                        text_size: self.width, None
-                        halign: "right"
-                        valign: "middle"
-                    
-                    Label:
-                        size_hint_x: 0.1
-                        text: "✓"
-                        font_size: sp(16)
-                        color: (0, 150/255.0, 136/255.0, 1)
-                        bold: True
+                height: self.minimum_height
+                padding: [dp(0), dp(5), dp(0), dp(50)]  # تقليل الحواف السفلية
                 
+                # قسم بدء طلب طباعة جديد
                 BoxLayout:
-                    orientation: "horizontal"
                     size_hint_y: None
-                    height: dp(30)
+                    height: dp(220)
+                    padding: [dp(20), dp(0), dp(20), dp(0)]
                     
-                    Label:
-                        size_hint_x: 0.9
-                        text: "• " + alg.get_display(arabic_reshaper.reshape("توصيل سريع للمنازل"))
-                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(24)
-                        color: (0.25, 0.25, 0.25, 1)
-                        text_size: self.width, None
-                        halign: "right"
-                        valign: "middle"
-                    
-                    Label:
-                        size_hint_x: 0.1
-                        text: "✓"
-                        font_size: sp(16)
-                        color: (33/255.0, 150/255.0, 243/255.0, 1)
-                        bold: True
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: 0
+                        canvas.before:
+                            Color:
+                                rgba: [1, 1, 1, 1]
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [dp(12),]
+                            Color:
+                                rgba: [0.9, 0.9, 0.9, 1]
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: [self.x, self.y, self.width, self.height, dp(12)]
+                        
+                        BoxLayout:
+                            size_hint_y: None
+                            height: dp(120)
+                            
+                            AsyncImage:
+                                source: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAIuGwhzw9b7HMJ55xTpBqXDpnLxa5f4Ab6oXdt6D1nS4AYX8Cl9x8H3mhbxOxqz2our0Dfh1ReOPSlnXr7UFuWzeBjRUJD0lk1GIAF_T4dVE9IqJdYxt466H9zsNoUyoNeROZcpLs8Kkh0GOPv33c3x4px1P-ySiR6wc2l0ob_mV9THWHDQwcDA2Mk0gkemJ8Q8VUowC1Ctm8l80vQei72cq_Oea8JxAVHLiKjeaTyzr5Barv_FbeET2zFXVn0tl6YRjciop94y-k'
+                                allow_stretch: True
+                                keep_ratio: False
+                        
+                        BoxLayout:
+                            orientation: 'vertical'
+                            spacing: dp(5)
+                            padding: [dp(20), dp(15), dp(20), dp(15)]
+                            
+                            Label:
+                                text: 'ابدأ طلب طباعة جديد'
+                                font_name: 'AwanZaman'
+                                font_size: dp(18)
+                                color: [0.1, 0.1, 0.1, 1]
+                                halign: 'right'
+                                text_size: self.size
+                                size_hint_y: None
+                                height: dp(24)
+                            
+                            Label:
+                                text: 'ارفع ملفاتك وسنقوم بتوصيلها إلى باب منزلك غداً.'
+                                font_name: 'fonts/ArbFONTS-AwanZaman-Regular.ttf'
+                                font_size: dp(13)
+                                color: [0.3, 0.3, 0.3, 1]
+                                halign: 'right'
+                                text_size: self.size
+                                size_hint_y: None
+                                height: dp(18)
+                            
+                            Button:
+                                size_hint_y: None
+                                height: dp(40)
+                                background_color: [0.17, 0.42, 0.93, 1]
+                                background_normal: ''
+                                on_release: root.start_new_order()
+                                
+                                canvas.before:
+                                    Color:
+                                        rgba: [0.17, 0.42, 0.93, 1]
+                                    RoundedRectangle:
+                                        pos: self.pos
+                                        size: self.size
+                                        radius: [dp(8),]
+                                
+                                Label:
+                                    text: 'ابدأ الطلب'
+                                    font_name: 'AwanZaman'
+                                    font_size: dp(14)
+                                    color: [1, 1, 1, 1]
+                                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                 
+                # قسم الإجراءات السريعة
                 BoxLayout:
-                    orientation: "horizontal"
                     size_hint_y: None
-                    height: dp(30)
+                    height: dp(250)
+                    orientation: 'vertical'
+                    spacing: dp(10)
+                    padding: [dp(20), dp(0), dp(20), dp(0)]
                     
-                    Label:
-                        size_hint_x: 0.9
-                        text: "• " + alg.get_display(arabic_reshaper.reshape("دعم على مدار الساعة"))
-                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
-                        font_size: sp(24)
-                        color: (0.25, 0.25, 0.25, 1)
-                        text_size: self.width, None
-                        halign: "right"
-                        valign: "middle"
+                    # عنوان القسم
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(30)
+                        
+                        Label:
+                            text: 'إجراءات سريعة'
+                            font_name: 'AwanZaman'
+                            font_size: dp(16)
+                            color: [0.1, 0.1, 0.1, 1]
+                            halign: 'right'
+                            text_size: self.size
+                            size_hint_x: 0.8
+                        
+                        Button:
+                            size_hint_x: 0.2
+                            background_color: [0, 0, 0, 0]
+                            background_normal: ''
+                            on_release: root.show_all_actions()
+                            
+                            Label:
+                                text: 'عرض الكل'
+                                font_name: 'AwanZaman'
+                                font_size: dp(13)
+                                color: [0.17, 0.42, 0.93, 1]
+                                pos_hint: {'right': 1, 'center_y': 0.5}
+                                text_size: self.size
+                                halign: 'right'
                     
-                    Label:
-                        size_hint_x: 0.1
-                        text: "✓"
-                        font_size: sp(16)
-                        color: (233/255.0, 75/255.0, 53/255.0, 1)
-                        bold: True
+                    # شبكة الإجراءات السريعة
+                    GridLayout:
+                        cols: 3
+                        spacing: dp(10)
+                        size_hint_y: None
+                        height: dp(200)
+                        
+                        # طباعة صور
+                        Button:
+                            background_color: [0, 0, 0, 0]
+                            background_normal: ''
+                            on_release: root.print_images()
+                            
+                            canvas.before:
+                                Color:
+                                    rgba: [1, 1, 1, 1]
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(12),]
+                                Color:
+                                    rgba: [0.9, 0.9, 0.9, 1]
+                                Line:
+                                    width: 0.5
+                                    rounded_rectangle: [self.x, self.y, self.width, self.height, dp(12)]
+                            
+                            BoxLayout:
+                                orientation: 'vertical'
+                                padding: [dp(15), dp(15), dp(15), dp(15)]
+                                
+                                FloatLayout:
+                                    size_hint_y: None
+                                    height: dp(120)
+                                    
+                                    AsyncImage:
+                                        source: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBdgbXC-7rx0CreDjbI8MhmKxOdhMdG_JP5uncfdGpKOOB2q9H6PZNb12KrUnXovxNvcGghjXXfnnZOaecfhme7ISrMleUKRHIq16VpHVSNcXZipZLbLNTRw2dc7XE46ZEWllRGBF81RCs84NCDSptXAZIDaAmQMOA-zgIyBkztxzAnRab2lHtuuH2ph-9TPo0_X2V3SuoQ4RhhrTU8NxISGb99qyWpIBX1LYgbQBLKmtVeWphstxwpwUHpAS3ehgNwuM_Rw5gAFxU'
+                                        allow_stretch: True
+                                        keep_ratio: False
+                                        size: self.parent.size
+                                        pos: self.parent.pos
+                                    
+                                    BoxLayout:
+                                        size_hint: None, None
+                                        size: dp(40), dp(40)
+                                        pos_hint: {'right': 0.85, 'top': 0.85}
+                                        canvas.before:
+                                            Color:
+                                                rgba: [1, 1, 1, 0.2]
+                                            RoundedRectangle:
+                                                pos: self.pos
+                                                size: self.size
+                                                radius: [dp(20),]
+                                        
+                                        Label:
+                                            text: 'image'
+                                            font_name: 'MaterialSymbolsOutlined'
+                                            font_size: dp(20)
+                                            color: [1, 1, 1, 1]
+                                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                                
+                                Label:
+                                    text: 'طباعة صور'
+                                    font_name: 'AwanZaman'
+                                    font_size: dp(14)
+                                    color: [1, 1, 1, 1]
+                                    halign: 'right'
+                                    text_size: self.size
+                                    size_hint_y: None
+                                    height: dp(20)
+                        
+                        # طباعة مستندات
+                        Button:
+                            background_color: [0, 0, 0, 0]
+                            background_normal: ''
+                            on_release: root.print_documents()
+                            
+                            canvas.before:
+                                Color:
+                                    rgba: [1, 1, 1, 1]
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(12),]
+                                Color:
+                                    rgba: [0.9, 0.9, 0.9, 1]
+                                Line:
+                                    width: 0.5
+                                    rounded_rectangle: [self.x, self.y, self.width, self.height, dp(12)]
+                            
+                            BoxLayout:
+                                orientation: 'vertical'
+                                padding: [dp(15), dp(15), dp(15), dp(15)]
+                                
+                                FloatLayout:
+                                    size_hint_y: None
+                                    height: dp(120)
+                                    
+                                    AsyncImage:
+                                        source: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDFpj3rkgE6v0j1v3qQBYovnysTVFU1Q5YANoI0TdsJR0Kq0XHQAXqD3WqOLo_fgmF1dRLyk6WO-Ed0s162K7ujCJso7y3uQ58O_MpE3Iaz_PT7O0vS5Inj17ZnKghmxuRxRNnRCMny8GKt5AB_NqojMaCAKFJkYotGQUSKsAzSqcaF1i5K4NGZwBXx7ZJCcA3wLN7iDgmoXpS3So1-Kkdy6AFiCcKmiGbQny_PIxUF0U-Y7BxH4d52Z-v78YhkihkbXh-10nhfKQA'
+                                        allow_stretch: True
+                                        keep_ratio: False
+                                        size: self.parent.size
+                                        pos: self.parent.pos
+                                    
+                                    BoxLayout:
+                                        size_hint: None, None
+                                        size: dp(40), dp(40)
+                                        pos_hint: {'right': 0.85, 'top': 0.85}
+                                        canvas.before:
+                                            Color:
+                                                rgba: [1, 1, 1, 0.2]
+                                            RoundedRectangle:
+                                                pos: self.pos
+                                                size: self.size
+                                                radius: [dp(20),]
+                                        
+                                        Label:
+                                            text: 'description'
+                                            font_name: 'MaterialSymbolsOutlined'
+                                            font_size: dp(20)
+                                            color: [1, 1, 1, 1]
+                                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                                
+                                Label:
+                                    text: 'طباعة مستندات'
+                                    font_name: 'AwanZaman'
+                                    font_size: dp(14)
+                                    color: [1, 1, 1, 1]
+                                    halign: 'right'
+                                    text_size: self.size
+                                    size_hint_y: None
+                                    height: dp(20)
+                        
+                        # إعادة طلب
+                        Button:
+                            background_color: [0, 0, 0, 0]
+                            background_normal: ''
+                            on_release: root.reorder()
+                            
+                            canvas.before:
+                                Color:
+                                    rgba: [1, 1, 1, 1]
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(12),]
+                                Color:
+                                    rgba: [0.9, 0.9, 0.9, 1]
+                                Line:
+                                    width: 0.5
+                                    rounded_rectangle: [self.x, self.y, self.width, self.height, dp(12)]
+                            
+                            BoxLayout:
+                                orientation: 'vertical'
+                                padding: [dp(15), dp(15), dp(15), dp(15)]
+                                
+                                FloatLayout:
+                                    size_hint_y: None
+                                    height: dp(120)
+                                    
+                                    AsyncImage:
+                                        source: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBNq6Jf3XUH-uPXEfJhocyCCS-pvXkqBofto-Y-AtcnZ5vRRXgggLDGZ-D-hNVJGmB4bgsfQj5Ga0oMedjKtFI87bkMIFTqPuRpKYtQBfi3Emsd11IvGea7Cs_8ldOZ-rgaNFe17qFa-OF2--vo2NwwgPj5LYrKNf6dCk4dlVel2MMQEIWANGI-FWAFYqc4V-iACy2KFVk0UU_JvuXfI39rT0qiTGoWH6_JijYtpjcWW6z8CRzEE5CqXtEhx1g1e4wgvL0bvvoRAc4'
+                                        allow_stretch: True
+                                        keep_ratio: False
+                                        size: self.parent.size
+                                        pos: self.parent.pos
+                                    
+                                    BoxLayout:
+                                        size_hint: None, None
+                                        size: dp(40), dp(40)
+                                        pos_hint: {'right': 0.85, 'top': 0.85}
+                                        canvas.before:
+                                            Color:
+                                                rgba: [1, 1, 1, 0.2]
+                                            RoundedRectangle:
+                                                pos: self.pos
+                                                size: self.size
+                                                radius: [dp(20),]
+                                        
+                                        Label:
+                                            text: 'history'
+                                            font_name: 'MaterialSymbolsOutlined'
+                                            font_size: dp(20)
+                                            color: [1, 1, 1, 1]
+                                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                                
+                                Label:
+                                    text: 'إعادة طلب'
+                                    font_name: 'AwanZaman'
+                                    font_size: dp(14)
+                                    color: [1, 1, 1, 1]
+                                    halign: 'right'
+                                    text_size: self.size
+                                    size_hint_y: None
+                                    height: dp(20)
+                
+                # قسم الخصم
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(100)
+                    padding: [dp(20), dp(0), dp(20), dp(0)]
+                    
+                    Button:
+                        background_color: [0.17, 0.42, 0.93, 1]
+                        background_normal: ''
+                        on_release: root.show_discount()
+                        
+                        canvas.before:
+                            Color:
+                                rgba: [0.17, 0.42, 0.93, 1]
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [dp(12),]
+                        
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            padding: [dp(20), dp(15), dp(20), dp(15)]
+                            
+                            BoxLayout:
+                                orientation: 'vertical'
+                                spacing: dp(5)
+                                
+                                Label:
+                                    text: 'خصم 15%'
+                                    font_name: 'AwanZaman'
+                                    font_size: dp(16)
+                                    color: [1, 1, 1, 1]
+                                    halign: 'right'
+                                    text_size: self.size
+                                
+                                Label:
+                                    text: 'على طلب الطباعة الملونة الأول.'
+                                    font_name: 'fonts/ArbFONTS-AwanZaman-Regular.ttf'
+                                    font_size: dp(13)
+                                    color: [0.8, 0.85, 1, 1]
+                                    halign: 'right'
+                                    text_size: self.size
+                            
+                            Label:
+                                text: 'local_offer'
+                                font_name: 'MaterialSymbolsOutlined'
+                                font_size: dp(32)
+                                color: [1, 1, 1, 0.8]
+                                size_hint_x: 0.2
+                                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                
+                # قسم تتبع الطلبات
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(220)
+                    orientation: 'vertical'
+                    spacing: dp(10)
+                    padding: [dp(20), dp(0), dp(20), dp(0)]
+                    
+                    # عنوان القسم
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(30)
+                        
+                        Label:
+                            text: 'تتبع طلباتك'
+                            font_name: 'AwanZaman'
+                            font_size: dp(16)
+                            color: [0.1, 0.1, 0.1, 1]
+                            halign: 'right'
+                            text_size: self.size
+                    
+                    # قائمة الطلبات
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: dp(10)
+                        
+                        # طلب 1
+                        Button:
+                            size_hint_y: None
+                            height: dp(70)
+                            background_color: [0, 0, 0, 0]
+                            background_normal: ''
+                            on_release: root.track_order(1)
+                            
+                            canvas.before:
+                                Color:
+                                    rgba: [1, 1, 1, 1]
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(12),]
+                                Color:
+                                    rgba: [0.9, 0.9, 0.95, 1]
+                                Line:
+                                    width: 0.5
+                                    rounded_rectangle: [self.x, self.y, self.width, self.height, dp(12)]
+                            
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                spacing: dp(15)
+                                padding: [dp(15), dp(10), dp(15), dp(10)]
+                                
+                                # أيقونة
+                                BoxLayout:
+                                    size_hint_x: 0.2
+                                    canvas.before:
+                                        Color:
+                                            rgba: [0.87, 0.92, 1, 1]
+                                        RoundedRectangle:
+                                            pos: self.pos
+                                            size: self.size
+                                            radius: [dp(25),]
+                                    
+                                    Label:
+                                        text: 'description'
+                                        font_name: 'MaterialSymbolsOutlined'
+                                        font_size: dp(24)
+                                        color: [0.17, 0.42, 0.93, 1]
+                                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                                
+                                # تفاصيل الطلب
+                                BoxLayout:
+                                    orientation: 'vertical'
+                                    spacing: dp(2)
+                                    size_hint_x: 0.6
+                                    
+                                    Label:
+                                        text: 'رسالة_الماجستير.pdf'
+                                        font_name: 'AwanZaman'
+                                        font_size: dp(14)
+                                        color: [0.1, 0.1, 0.1, 1]
+                                        halign: 'right'
+                                        text_size: self.size
+                                        shorten: True
+                                        shorten_from: 'right'
+                                    
+                                    Label:
+                                        text: 'نسختين • ملون'
+                                        font_name: 'fonts/ArbFONTS-AwanZaman-Regular.ttf'
+                                        font_size: dp(12)
+                                        color: [0.3, 0.3, 0.3, 1]
+                                        halign: 'right'
+                                        text_size: self.size
+                                
+                                # حالة الطلب
+                                BoxLayout:
+                                    size_hint_x: 0.2
+                                    canvas.before:
+                                        Color:
+                                            rgba: [0.85, 1, 0.85, 1]
+                                        RoundedRectangle:
+                                            pos: self.pos
+                                            size: self.size
+                                            radius: [dp(15),]
+                                    
+                                    Label:
+                                        text: 'تم التوصيل'
+                                        font_name: 'AwanZaman'
+                                        font_size: dp(10)
+                                        color: [0.1, 0.6, 0.1, 1]
+                                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                                        text_size: self.size
+                                        halign: 'center'
+                        
+                        # طلب 2
+                        Button:
+                            size_hint_y: None
+                            height: dp(70)
+                            background_color: [0, 0, 0, 0]
+                            background_normal: ''
+                            on_release: root.track_order(2)
+                            
+                            canvas.before:
+                                Color:
+                                    rgba: [1, 1, 1, 1]
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(12),]
+                                Color:
+                                    rgba: [0.9, 0.9, 0.95, 1]
+                                Line:
+                                    width: 0.5
+                                    rounded_rectangle: [self.x, self.y, self.width, self.height, dp(12)]
+                            
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                spacing: dp(15)
+                                padding: [dp(15), dp(10), dp(15), dp(10)]
+                                
+                                # أيقونة
+                                BoxLayout:
+                                    size_hint_x: 0.2
+                                    canvas.before:
+                                        Color:
+                                            rgba: [1, 0.95, 0.85, 1]
+                                        RoundedRectangle:
+                                            pos: self.pos
+                                            size: self.size
+                                            radius: [dp(25),]
+                                    
+                                    Label:
+                                        text: 'image'
+                                        font_name: 'MaterialSymbolsOutlined'
+                                        font_size: dp(24)
+                                        color: [1, 0.65, 0, 1]
+                                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                                
+                                # تفاصيل الطلب
+                                BoxLayout:
+                                    orientation: 'vertical'
+                                    spacing: dp(2)
+                                    size_hint_x: 0.6
+                                    
+                                    Label:
+                                        text: 'صور_العطلة.zip'
+                                        font_name: 'AwanZaman'
+                                        font_size: dp(14)
+                                        color: [0.1, 0.1, 0.1, 1]
+                                        halign: 'right'
+                                        text_size: self.size
+                                        shorten: True
+                                        shorten_from: 'right'
+                                    
+                                    Label:
+                                        text: '25 نسخة • لامع'
+                                        font_name: 'fonts/ArbFONTS-AwanZaman-Regular.ttf'
+                                        font_size: dp(12)
+                                        color: [0.3, 0.3, 0.3, 1]
+                                        halign: 'right'
+                                        text_size: self.size
+                                
+                                # حالة الطلب
+                                BoxLayout:
+                                    size_hint_x: 0.2
+                                    canvas.before:
+                                        Color:
+                                            rgba: [1, 0.95, 0.85, 1]
+                                        RoundedRectangle:
+                                            pos: self.pos
+                                            size: self.size
+                                            radius: [dp(15),]
+                                    
+                                    Label:
+                                        text: 'جاري الطباعة'
+                                        font_name: 'AwanZaman'
+                                        font_size: dp(10)
+                                        color: [0.8, 0.5, 0, 1]
+                                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                                        text_size: self.size
+                                        halign: 'center'
+    
+        # شريط التنقل السفلي
+        BoxLayout:
+            id: bottom_nav
+            size_hint_y: None
+            height: dp(70)
+            padding: [dp(5), dp(5), dp(5), dp(10)]
+            canvas.before:
+                Color:
+                    rgba: [1, 1, 1, 1]
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                Color:
+                    rgba: [0.9, 0.9, 0.95, 1]
+                Line:
+                    width: 0.5
+                    rectangle: [self.x, self.y, self.width, self.height]
+            
+            GridLayout:
+                cols: 4
+                spacing: 0
+                
+                # الرئيسية
+                Button:
+                    background_color: [0, 0, 0, 0]
+                    background_normal: ''
+                    on_release: root.go_home()
+                    
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: dp(2)
+                        
+                        Label:
+                            text: 'home'
+                            font_name: 'MaterialSymbolsOutlined'
+                            font_size: dp(26)
+                            color: [0.17, 0.42, 0.93, 1]
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                        
+                        Label:
+                            text: 'الرئيسية'
+                            font_name: 'AwanZaman'
+                            font_size: dp(10)
+                            color: [0.17, 0.42, 0.93, 1]
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                
+                # الطلبات
+                Button:
+                    background_color: [0, 0, 0, 0]
+                    background_normal: ''
+                    on_release: root.orders_pressed()
+                    
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: dp(2)
+                        
+                        Label:
+                            text: 'receipt_long'
+                            font_name: 'MaterialSymbolsOutlined'
+                            font_size: dp(26)
+                            color: [0.3, 0.3, 0.3, 1]
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                        
+                        Label:
+                            text: 'الطلبات'
+                            font_name: 'AwanZaman'
+                            font_size: dp(10)
+                            color: [0.3, 0.3, 0.3, 1]
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                
+                # المحفظة
+                Button:
+                    background_color: [0, 0, 0, 0]
+                    background_normal: ''
+                    on_release: root.wallet_pressed()
+                    
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: dp(2)
+                        
+                        Label:
+                            text: 'account_balance_wallet'
+                            font_name: 'MaterialSymbolsOutlined'
+                            font_size: dp(26)
+                            color: [0.3, 0.3, 0.3, 1]
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                        
+                        Label:
+                            text: 'المحفظة'
+                            font_name: 'AwanZaman'
+                            font_size: dp(10)
+                            color: [0.3, 0.3, 0.3, 1]
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                
+                # حسابي
+                Button:
+                    background_color: [0, 0, 0, 0]
+                    background_normal: ''
+                    on_release: root.profile_pressed()
+                    
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: dp(2)
+                        
+                        Label:
+                            text: 'person'
+                            font_name: 'MaterialSymbolsOutlined'
+                            font_size: dp(26)
+                            color: [0.3, 0.3, 0.3, 1]
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                        
+                        Label:
+                            text: 'حسابي'
+                            font_name: 'AwanZaman'
+                            font_size: dp(10)
+                            color: [0.3, 0.3, 0.3, 1]
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
