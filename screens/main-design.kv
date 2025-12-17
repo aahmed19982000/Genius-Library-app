@@ -1,0 +1,316 @@
+#:import dp kivy.metrics.dp
+#:import sp kivy.metrics.sp
+
+<MainDesign>:
+    name: "main_design"
+    canvas.before:
+        Color:
+            rgba: 0.97, 0.98, 0.99, 1  # خلفية التطبيق الرمادية الفاتحة جداً
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        
+        # --- الشريط العلوي ---
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: [dp(20), dp(10)]
+            
+            # زر التنبيهات
+            AnchorLayout:
+                anchor_x: 'left'
+                size_hint_x: None
+                width: dp(50)
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    Ellipse:
+                        pos: self.x + dp(5), self.y + dp(10)
+                        size: dp(40), dp(40)
+                Image:
+                    source: "assets/bell.png"
+                    size: dp(22), dp(22)
+
+            Widget: # فراغ
+
+            # الترحيب والاسم
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_x: None
+                width: dp(120)
+                Label:
+                    text: "صباح الخير"
+                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                    font_size: sp(13)
+                    color: 0.6, 0.6, 0.6, 1
+                    halign: "right"
+                    text_size: self.size
+                Label:
+                    text: "أحمد!"
+                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                    font_size: sp(22)
+                    color: 0, 0, 0, 1
+                    bold: True
+                    halign: "right"
+                    text_size: self.size
+            
+            # الصورة الشخصية
+            Image:
+                source: "assets/user_avatar.png"
+                size_hint: None, None
+                size: dp(45), dp(45)
+
+        ScrollView:
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                padding: [dp(20), 0, dp(20), dp(80)]
+                spacing: dp(25)
+
+                # --- كارت الطابعة الرئيسي ---
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: dp(320)
+                    canvas.before:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20),]
+                        # ظل خفيف تحت الكارت
+                        Color:
+                            rgba: 0, 0, 0, 0.05
+                        Line:
+                            rounded_rectangle: [self.x, self.y, self.width, self.height, dp(20)]
+                            width: dp(1)
+
+                    Image:
+                        source: "assets/printer_hero.png"
+                        size_hint_y: 0.5
+                        allow_stretch: True
+                        keep_ratio: False
+
+                    BoxLayout:
+                        orientation: "vertical"
+                        padding: [dp(20), dp(15)]
+                        spacing: dp(10)
+                        Label:
+                            text: "ابدأ طلب طباعة جديد"
+                            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                            font_size: sp(22)
+                            color: 0.1, 0.1, 0.1, 1
+                            bold: True
+                        Label:
+                            text: "ارفع ملفاتك وسنقوم بتوصيلها إلى باب منزلك غداً."
+                            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                            font_size: sp(14)
+                            color: 0.5, 0.5, 0.5, 1
+                            halign: "center"
+                        
+                        RoundedButton:
+                            text: "ابدأ الطلب"
+                            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                            font_size: sp(18)
+                            size_hint_y: None
+                            height: dp(50)
+                            on_release: root.start_new_order()
+                            canvas.before:
+                                Color:
+                                    rgba: (0.22, 0.45, 0.9, 1) # اللون الأزرق المشابه للصورة
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [dp(12),]
+
+                # --- قسم إجراءات سريعة ---
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(30)
+                    Button:
+                        text: "عرض الكل"
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        color: 0.3, 0.5, 0.9, 1
+                        background_color: 0,0,0,0
+                        size_hint_x: None
+                        width: dp(80)
+                        on_release: root.show_all_actions()
+                    Widget:
+                    Label:
+                        text: "إجراءات سريعة"
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        font_size: sp(18)
+                        bold: True
+                        color: 0, 0, 0, 1
+                        halign: "right"
+                        text_size: self.size
+
+                GridLayout:
+                    cols: 3
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: dp(130)
+                    
+                    # كارت طباعة صور (تدرج أزرق)
+                    ActionButton:
+                        text: "طباعة صور"
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        canvas.before:
+                            Color:
+                                rgba: 0.2, 0.5, 0.6, 1
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [dp(15),]
+                    
+                    # كارت طباعة مستندات (تدرج برتقالي)
+                    ActionButton:
+                        text: "طباعة مستندات"
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        on_release: root.print_documents_action()
+                        canvas.before:
+                            Color:
+                                rgba: 0.8, 0.4, 0.1, 1
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [dp(15),]
+
+                    # كارت إعادة طلب (تدرج بنفسجي)
+                    ActionButton:
+                        text: "إعادة طلب"
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        canvas.before:
+                            Color:
+                                rgba: 0.4, 0.1, 0.4, 1
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [dp(15),]
+
+                # --- بانر الخصم (الأزرق) ---
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(75)
+                    padding: dp(15)
+                    canvas.before:
+                        Color:
+                            rgba: 0.25, 0.5, 0.95, 1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(15),]
+                    Image:
+                        source: "assets/tag_icon.png"
+                        size_hint_x: None
+                        width: dp(30)
+                    BoxLayout:
+                        orientation: "vertical"
+                        Label:
+                            text: "خصم 15%"
+                            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                            bold: True
+                            halign: "right"
+                            text_size: self.size
+                        Label:
+                            text: "على طلب الطباعة الملونة الأول."
+                            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                            font_size: sp(12)
+                            halign: "right"
+                            text_size: self.size
+
+                # --- تتبع طلباتك ---
+                Label:
+                    text: "تتبع طلباتك"
+                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                    font_size: sp(18)
+                    bold: True
+                    color: 0, 0, 0, 1
+                    halign: "right"
+                    text_size: self.size
+                    size_hint_y: None
+                    height: dp(30)
+
+                # بطاقة الطلب (رسالة الماجستير)
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(85)
+                    padding: [dp(15), dp(10)]
+                    canvas.before:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(15),]
+                    
+                    # حالة الطلب (أخضر)
+                    Label:
+                        text: "تم التوصيل"
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        color: 0.2, 0.7, 0.3, 1
+                        font_size: sp(12)
+                        size_hint_x: 0.3
+                    
+                    Widget:
+                    
+                    BoxLayout:
+                        orientation: "vertical"
+                        Label:
+                            text: "رسالة_الماجستير.pdf"
+                            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                            bold: True
+                            color: 0, 0, 0, 1
+                            halign: "right"
+                            text_size: self.size
+                        Label:
+                            text: "نسختين • ملون"
+                            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                            color: 0.6, 0.6, 0.6, 1
+                            font_size: sp(12)
+                            halign: "right"
+                            text_size: self.size
+                    
+                    Image:
+                        source: "assets/pdf_blue.png"
+                        size_hint_x: None
+                        width: dp(40)
+
+    # --- شريط التنقل السفلي ---
+    BoxLayout:
+        size_hint_y: None
+        height: dp(65)
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        
+        # أزرار التنقل (الرئيسية، الطلبات، المحفظة، حسابي)
+        # سيتم توزيعها بالتساوي
+        Button:
+            text: "حسابي"
+            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+            background_color: 0,0,0,0
+            color: 0.7, 0.7, 0.7, 1
+        Button:
+            text: "المحفظة"
+            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+            background_color: 0,0,0,0
+            color: 0.7, 0.7, 0.7, 1
+        Button:
+            text: "الطلبات"
+            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+            background_color: 0,0,0,0
+            color: 0.7, 0.7, 0.7, 1
+        Button:
+            text: "الرئيسية"
+            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+            background_color: 0,0,0,0
+            color: 0.2, 0.45, 0.9, 1 # اللون النشط

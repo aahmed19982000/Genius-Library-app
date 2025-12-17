@@ -1,0 +1,195 @@
+#:import dp kivy.metrics.dp
+#:import sp kivy.metrics.sp
+
+<ServiceItem@BoxLayout>:
+    title: ""
+    description: ""
+    icon_source: ""
+    icon_bg_color: [1, 1, 1, 1]
+    orientation: "horizontal"
+    size_hint_y: None
+    height: dp(100)
+    padding: [dp(15), dp(10)]
+    spacing: dp(15)
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(15),]
+
+    # سهم الانتقال
+    Image:
+        source: "assets/chevron_left.png"
+        size_hint_x: None
+        width: dp(20)
+        opacity: 0.3
+
+    Widget: # فراغ مرن لدفع النصوص لليمين
+
+    # النصوص
+    BoxLayout:
+        orientation: "vertical"
+        size_hint_x: 0.7
+        Label:
+            text: root.title
+            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+            font_size: sp(17)
+            color: 0, 0, 0, 1
+            bold: True
+            halign: "right"
+            text_size: self.size
+        Label:
+            text: root.description
+            font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+            font_size: sp(13)
+            color: 0.6, 0.6, 0.6, 1
+            halign: "right"
+            text_size: self.size
+
+    # الأيقونة
+    BoxLayout:
+        size_hint: None, None
+        size: dp(50), dp(50)
+        pos_hint: {"center_y": .5}
+        canvas.before:
+            Color:
+                rgba: root.icon_bg_color
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(12),]
+        Image:
+            source: root.icon_source
+            size_hint: None, None
+            size: dp(25), dp(25)
+            center: self.parent.center
+
+<ServicesDesign>:
+    # الحاوية الرئيسية الخارجية
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+        pos: root.pos
+        canvas.before:
+            Color:
+                rgba: 0.98, 0.98, 0.99, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # الجزء العلوي (المحتوى القابل للتمرير)
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                padding: [dp(20), dp(20), dp(20), dp(20)]
+                spacing: dp(20)
+
+                # الشريط العلوي
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(60)
+                    Button:
+                        size_hint: None, None
+                        size: dp(40), dp(40)
+                        background_normal: ''
+                        background_color: 0,0,0,0
+                        canvas.before:
+                            Color:
+                                rgba: 1, 1, 1, 1
+                            Ellipse:
+                                pos: self.pos
+                                size: self.size
+                        Image:
+                            source: "assets/bell.png"
+                            center: self.parent.center
+                            size: dp(20), dp(20)
+                    Widget:
+                    Label:
+                        text: "أحمد!\nأهلاً بك"
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        color: 0, 0, 0, 1
+                        halign: "right"
+                        text_size: self.size
+
+                # العنوان
+                Label:
+                    text: "جميع الخدمات"
+                    font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                    font_size: sp(26)
+                    bold: True
+                    color: 0, 0, 0, 1
+                    size_hint_y: None
+                    height: dp(40)
+                    halign: "right"
+                    text_size: self.size
+
+                # حقل البحث
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(50)
+                    padding: [dp(15), 0]
+                    canvas.before:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(12),]
+                    TextInput:
+                        hint_text: "ابحث عن خدمة..."
+                        font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
+                        background_color: 0,0,0,0
+                        multiline: False
+                        halign: "right"
+                        padding_y: [self.height/2 - 15, 0] # ضبط مكان النص يدوياً
+
+                # قائمة الخدمات
+                ServiceItem:
+                    title: "طباعة مستندات"
+                    description: "طباعة الملفات النصية بجودة عالية"
+                    icon_source: "assets/file_icon.png"
+                    icon_bg_color: [1, 0.95, 0.9, 1]
+
+                ServiceItem:
+                    title: "طباعة صور"
+                    description: "طباعة صور فوتوغرافية ملونة"
+                    icon_source: "assets/image_icon.png"
+                    icon_bg_color: [0.95, 0.9, 1, 1]
+
+                ServiceItem:
+                    title: "لوحات وبوسترات"
+                    description: "طباعة مقاسات كبيرة وتصاميم"
+                    icon_source: "assets/poster_icon.png"
+                    icon_bg_color: [0.9, 1, 0.95, 1]
+
+        # الشريط السفلي (ثابت لا يتحرك مع السكرول)
+        BoxLayout:
+            size_hint_y: None
+            height: dp(65)
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            
+            Button:
+                text: "حسابي"
+                color: 0.7, 0.7, 0.7, 1
+                background_color: 0,0,0,0
+            Button:
+                text: "الخدمات"
+                color: 0.2, 0.45, 0.9, 1
+                background_color: 0,0,0,0
+            Button:
+                text: "الرئيسية"
+                color: 0.7, 0.7, 0.7, 1
+                background_color: 0,0,0,0
+                on_release: root.manager.current = "main_design"

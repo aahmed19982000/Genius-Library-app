@@ -1,0 +1,126 @@
+# widgets/bottom_nav.kv
+#:import dp kivy.metrics.dp
+#:import hex kivy.utils.get_color_from_hex
+
+<BottomNavigationBar>:
+    size_hint_y: None
+    height: dp(85)
+    orientation: 'vertical'
+    spacing: 0
+    
+    # الخط العلوي
+    BoxLayout:
+        size_hint_y: None
+        height: dp(1)
+        canvas.before:
+            Color:
+                rgba: hex(root.border_color)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    
+    # الأزرار
+    BoxLayout:
+        size_hint_y: None
+        height: dp(84)
+        padding: [dp(5), dp(10), dp(5), dp(15)]
+        
+        GridLayout:
+            cols: 4
+            spacing: 0
+            
+            # الرئيسية
+            Button:
+                background_color: [0, 0, 0, 0]
+                background_normal: ''
+                on_release: root.home_press() if root.home_press else None
+                
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(3)
+                    
+                    Label:
+                        text: root.home_icon
+                        font_name: 'MaterialSymbolsOutlined'
+                        font_size: dp(30)
+                        color: hex(root.active_color)
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                    
+                    Label:
+                        text: root.home_label
+                        font_name: 'AwanZaman'
+                        font_size: dp(11)
+                        color: hex(root.active_color)
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            
+            # الطلبات
+            Button:
+                background_color: [0, 0, 0, 0]
+                background_normal: ''
+                on_release: root.orders_press() if root.orders_press else None
+                
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(3)
+                    
+                    Label:
+                        text: root.orders_icon
+                        font_name: 'MaterialSymbolsOutlined'
+                        font_size: dp(30)
+                        color: hex(root.inactive_color)
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                    
+                    Label:
+                        text: root.orders_label
+                        font_name: 'AwanZaman'
+                        font_size: dp(11)
+                        color: hex(root.inactive_color)
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            
+            # المحفظة
+            Button:
+                background_color: [0, 0, 0, 0]
+                background_normal: ''
+                on_release: root.wallet_press() if root.wallet_press else None
+                
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(3)
+                    
+                    Label:
+                        text: root.wallet_icon
+                        font_name: 'MaterialSymbolsOutlined'
+                        font_size: dp(30)
+                        color: hex(root.inactive_color)
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                    
+                    Label:
+                        text: root.wallet_label
+                        font_name: 'AwanZaman'
+                        font_size: dp(11)
+                        color: hex(root.inactive_color)
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            
+            # حسابي
+            Button:
+                background_color: [0, 0, 0, 0]
+                background_normal: ''
+                on_release: root.profile_press() if root.profile_press else None
+                
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(3)
+                    
+                    Label:
+                        text: root.profile_icon
+                        font_name: 'MaterialSymbolsOutlined'
+                        font_size: dp(30)
+                        color: hex(root.inactive_color)
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                    
+                    Label:
+                        text: root.profile_label
+                        font_name: 'AwanZaman'
+                        font_size: dp(11)
+                        color: hex(root.inactive_color)
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.4}
