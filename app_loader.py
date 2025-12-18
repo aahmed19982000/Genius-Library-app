@@ -16,7 +16,7 @@ def load_application():
     from screens.login import LoginScreen
     from screens.register import RegisterScreen
     from screens.main_design import MainDesign
-    from screens.services_design import ServicesDesign
+    from screens.services_design import ServicesScreen
     
     sm = ScreenManager()
     
@@ -26,7 +26,7 @@ def load_application():
     
     # غيرنا الاسم هنا إلى services_design ليطابق الكود الذي يسبب الانهيار
     sm.add_widget(MainDesign(name='main'))
-    sm.add_widget(ServicesDesign(name='services_design'))
+    sm.add_widget(ServicesScreen(name='services_design'))
     
     sm.current = 'login'
     
@@ -34,24 +34,20 @@ def load_application():
     return sm
 
 def load_kv_files():
-    """تحميل جميع ملفات KV مع إصلاح الفواصل والمسارات"""
-    import os
     from kivy.lang import Builder
+    import os
     
-    # أضفنا الفواصل الناقصة وتأكدنا من المسارات
+    # قائمة الملفات
     kv_files = [
         'screens/login.kv',
         'screens/register.kv',
-        'screens/main-design.kv', # أضفنا فاصلة هنا
-        'screens/services-design.kv',
-        'screens/widgets/bottom_nav.kv'
+        'screens/main-design.kv',
+       # 'screens/services-design.kv'
     ]
     
     for kv_file in kv_files:
         if os.path.exists(kv_file):
-            # التأكد من عدم تكرار تحميل الملف إذا كان الـ Screen يحمله داخله
-            try:
-                Builder.load_file(kv_file)
-                print(f"✅ تم تحميل {kv_file}")
-            except Exception as e:
-                print(f"⚠️ {kv_file} محمل مسبقاً أو به خطأ: {e}")
+            # استخدم unload_file أولاً لتنظيف أي محاولات تحميل خاطئة سابقة
+            Builder.unload_file(kv_file)
+            Builder.load_file(kv_file)
+            print(f"✅ Loaded: {kv_file}")

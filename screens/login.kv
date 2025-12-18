@@ -62,7 +62,7 @@
             spacing: dp(25)
             padding: [dp(30), dp(25), dp(30), dp(10)]
             
-            # حقل اسم المستخدم (البريد الإلكتروني أو رقم الهاتف)
+            # حقل اسم المستخدم
             BoxLayout:
                 orientation: "vertical"
                 spacing: dp(8)
@@ -82,7 +82,7 @@
                     padding: [0, 0, dp(5), 0]
                 
                 TextInput:
-                    id: username_input  # نفس التعريف الأصلي
+                    id: username_input
                     multiline: False
                     font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                     font_size: sp(18)
@@ -99,11 +99,7 @@
                     cursor_color: (0.2, 0.2, 0.2, 1)
                     cursor_width: dp(2)
                     write_tab: False
-                    on_text:
-                        root.clear_error()
-                    on_focus:
-                        if self.focus: self.background_color = (0.93, 0.93, 0.93, 1)
-                        else: self.background_color = (0.96, 0.96, 0.96, 1)
+                    on_text: root.clear_error()
                     canvas.before:
                         Color:
                             rgba: self.background_color
@@ -137,7 +133,7 @@
                     padding: [0, 0, dp(5), 0]
                 
                 TextInput:
-                    id: password_input  # نفس التعريف الأصلي
+                    id: password_input
                     multiline: False
                     password: True
                     font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
@@ -155,11 +151,7 @@
                     cursor_color: (0.2, 0.2, 0.2, 1)
                     cursor_width: dp(2)
                     write_tab: False
-                    on_text:
-                        root.clear_error()
-                    on_focus:
-                        if self.focus: self.background_color = (0.93, 0.93, 0.93, 1)
-                        else: self.background_color = (0.96, 0.96, 0.96, 1)
+                    on_text: root.clear_error()
                     canvas.before:
                         Color:
                             rgba: self.background_color
@@ -173,15 +165,13 @@
                             width: dp(1.2)
                             rounded_rectangle: [self.x, self.y, self.width, self.height, dp(8)]
             
-            # رابط نسيت كلمة المرور (مُحاذى لليمين)
+            # رابط نسيت كلمة المرور
             BoxLayout:
                 orientation: "horizontal"
                 size_hint_y: None
                 height: dp(35)
-                
                 Widget:
                     size_hint_x: 0.5
-                
                 Button:
                     text: "هل نسيت كلمة المرور؟"
                     font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
@@ -193,7 +183,6 @@
                     size_hint_x: 0.5
                     size_hint_y: None
                     height: dp(35)
-                    padding: [0, dp(5)]
                     halign: "right"
                     valign: "middle"
                     text_size: self.width, None
@@ -201,12 +190,11 @@
         
         # حاوية رسالة الخطأ
         BoxLayout:
-            id: error_container  # نفس التعريف الأصلي
+            id: error_container
             size_hint_y: None
             height: 0
             opacity: 0
             padding: [dp(30), dp(5), dp(30), dp(5)]
-            
             Label:
                 text: root.error_message
                 font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
@@ -214,18 +202,16 @@
                 color: (0.85, 0.2, 0.2, 1)
                 text_size: self.width, None
                 halign: "center"
-                valign: "middle"
                 bold: True
         
-        # زر تسجيل الدخول الكبير
+        # زر تسجيل الدخول
         BoxLayout:
             orientation: "vertical"
             size_hint_y: None
             height: dp(100)
             padding: [dp(30), dp(15), dp(30), dp(15)]
-            
             Button:
-                id: login_button  # نفس التعريف الأصلي
+                id: login_button
                 text: "تسجيل دخول"
                 font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                 font_size: sp(20)
@@ -250,57 +236,40 @@
             size_hint_y: None
             height: dp(45)
             padding: [dp(30), 0, dp(30), 0]
-            
-            # "ليس لديك حساب؟" على اليمين
             Button:
                 text: "ليس لديك حساب؟"
                 font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                 font_size: sp(15)
-                bold: False
-                background_normal: ''
                 background_color: (0, 0, 0, 0)
                 color: (0.5, 0.5, 0.5, 1)
                 size_hint_x: 0.5
-                size_hint_y: None
-                height: dp(35)
                 halign: "right"
                 valign: "middle"
                 text_size: self.width, None
                 disabled: True
-                disabled_color: (0.5, 0.5, 0.5, 1)
-            
-            # "إنشاء حساب جديد" على اليسار
             Button:
                 text: "إنشاء حساب جديد"
                 font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                 font_size: sp(15)
                 bold: True
-                background_normal: ''
                 background_color: (0, 0, 0, 0)
                 color: (0.25, 0.6, 0.85, 1)
                 size_hint_x: 0.5
-                size_hint_y: None
-                height: dp(35)
                 halign: "left"
                 valign: "middle"
                 text_size: self.width, None
                 on_release: root.show_register_screen()
         
-        # قسم "أو متابعة التسجيل عبر"
+        # قسم "أو"
         BoxLayout:
             orientation: "vertical"
             size_hint_y: None
             height: dp(80)
-            spacing: dp(10)
             padding: [dp(30), dp(10), dp(30), dp(5)]
-            
-            # الخط والكلمة في المنتصف
             BoxLayout:
                 orientation: "horizontal"
                 size_hint_y: None
                 height: dp(30)
-                
-                # الخط الأيسر
                 Widget:
                     size_hint_x: 0.4
                     canvas.before:
@@ -309,20 +278,14 @@
                         Line:
                             points: [self.right - dp(10), self.center_y, self.right, self.center_y]
                             width: dp(1.5)
-                
-                # الكلمة "أو" في المنتصف
                 Label:
                     text: "أو"
                     font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
                     font_size: sp(14)
                     color: (0.7, 0.7, 0.7, 1)
                     size_hint_x: 0.2
-                    text_size: self.width, None
                     halign: "center"
-                    valign: "middle"
                     bold: True
-                
-                # الخط الأيمن
                 Widget:
                     size_hint_x: 0.4
                     canvas.before:
@@ -331,8 +294,6 @@
                         Line:
                             points: [self.x, self.center_y, self.x + dp(10), self.center_y]
                             width: dp(1.5)
-            
-            # نص "متابعة التسجيل عبر"
             Label:
                 text: "متابعة التسجيل عبر"
                 font_name: "fonts/ArbFONTS-AwanZaman-Regular.ttf"
@@ -340,63 +301,69 @@
                 color: (0.5, 0.5, 0.5, 1)
                 size_hint_y: None
                 height: dp(25)
-                text_size: self.width, None
                 halign: "center"
-                valign: "middle"
         
-        # مساحة للأيقونات (وسائل التواصل)
+        # --- قسم الأيقونات المحدث بالصور الحقيقية ---
         BoxLayout:
             orientation: "horizontal"
             size_hint_y: None
             height: dp(60)
             spacing: dp(20)
-            padding: [dp(80), dp(5), dp(80), dp(10)]
+            padding: [dp(70), dp(5), dp(70), dp(15)]
             
-            # أيقونات افتراضية (يمكن استبدالها بأيقونات حقيقية)
+            # جوجل
             Button:
-                text: "G"
-                font_size: sp(18)
-                bold: True
-                background_normal: ''
-                background_color: (0.96, 0.96, 0.96, 1)
-                color: (0.3, 0.3, 0.3, 1)
                 size_hint_x: 0.33
+                background_normal: ''
+                background_color: (0,0,0,0)
                 canvas.before:
                     Color:
-                        rgba: 0.9, 0.9, 0.9, 1
+                        rgba: 0.96, 0.96, 0.96, 1
                     RoundedRectangle:
                         pos: self.pos
                         size: self.size
-                        radius: [dp(8),]
+                        radius: [dp(10),]
+                Image:
+                    source: "assets/google_icon.png"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    size: dp(24), dp(24)
+                    allow_stretch: True
             
+            # فيسبوك
             Button:
-                text: "F"
-                font_size: sp(18)
-                bold: True
-                background_normal: ''
-                background_color: (0.96, 0.96, 0.96, 1)
-                color: (0.3, 0.3, 0.3, 1)
                 size_hint_x: 0.33
+                background_normal: ''
+                background_color: (0,0,0,0)
                 canvas.before:
                     Color:
-                        rgba: 0.9, 0.9, 0.9, 1
+                        rgba: 0.96, 0.96, 0.96, 1
                     RoundedRectangle:
                         pos: self.pos
                         size: self.size
-                        radius: [dp(8),]
-            
+                        radius: [dp(10),]
+                Image:
+                    source: "assets/facebook_icon.png"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    size: dp(24), dp(24)
+                    allow_stretch: True
+
+            # أبل
             Button:
-                text: "T"
-                font_size: sp(18)
-                bold: True
-                background_normal: ''
-                background_color: (0.96, 0.96, 0.96, 1)
-                color: (0.3, 0.3, 0.3, 1)
                 size_hint_x: 0.33
+                background_normal: ''
+                background_color: (0,0,0,0)
                 canvas.before:
                     Color:
-                        rgba: 0.9, 0.9, 0.9, 1
+                        rgba: 0.96, 0.96, 0.96, 1
                     RoundedRectangle:
                         pos: self.pos
                         size: self.size
-                        radius: [dp(8),]
+                        radius: [dp(10),]
+                Image:
+                    source: "assets/apple_icon.png"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    size: dp(24), dp(24)
+                    allow_stretch: True
